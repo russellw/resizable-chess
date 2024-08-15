@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/russellw/resizable-chess/issues"
   },
-  "homepage": "https://github.com/russellw/resizable-chess#readme"
+  "homepage": "https://github.com/russellw/resizable-chess#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
