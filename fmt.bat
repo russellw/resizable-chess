@@ -1,2 +1,2 @@
-jsfmt -w lib/*.js
-jsfmt -w test/*.js
+call jsfmt -w lib/*.js test/*.js
+git diff
