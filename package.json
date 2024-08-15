@@ -1,0 +1,22 @@
+{
+  "name": "resizable-chess",
+  "version": "1.0.0",
+  "description": "Chess engine for any board size",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/russellw/resizable-chess.git"
+  },
+  "keywords": [
+    "chess"
+  ],
+  "author": "Russell Wallace",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/russellw/resizable-chess/issues"
+  },
+  "homepage": "https://github.com/russellw/resizable-chess#readme"
+}
