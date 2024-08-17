@@ -12,3 +12,7 @@ test('minimum width', () => {
 test('minimum height', () => {
   expect(() => initialBoard(6, 2)).toThrow();
 });
+test('1x4', () => {
+  var board = initialBoard(1, 4)
+  expect(get(board, 0, 0)).toBe(KING);
+});
