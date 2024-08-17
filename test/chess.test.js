@@ -20,3 +20,9 @@ test('1x4', () => {
   expect(get(board, 0, 3)).toBe(-KING);
   expect(validMoves(board)).toStrictEqual([]);
 });
+test('1x4 pawnless', () => {
+  var board = blankBoard(1, 4)
+  put(board, 0, 0, KING)
+  put(board, 0, 3, -KING)
+  expect(validMoves(board).length).toBe(1);
+});
