@@ -1,2 +1,2 @@
-call jsfmt -w lib/*.js test/*.js
+call jsfmt -w *.js lib/*.js test/*.js
 git diff
