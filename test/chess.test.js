@@ -26,3 +26,10 @@ test('1x4 pawnless', () => {
   put(board, 0, 3, -KING)
   expect(validMoves(board).length).toBe(1);
 });
+test('staticVal decreases if you delete a rook', () => {
+  var board = initialBoard(8, 8)
+  var a = staticVal(board)
+  put(board, 0, 0, 0)
+  var b = staticVal(board)
+  expect(a).toBeGreaterThan(b);
+});
