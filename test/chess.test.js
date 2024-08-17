@@ -15,4 +15,8 @@ test('minimum height', () => {
 test('1x4', () => {
   var board = initialBoard(1, 4)
   expect(get(board, 0, 0)).toBe(KING);
+  expect(get(board, 0, 1)).toBe(PAWN);
+  expect(get(board, 0, 2)).toBe(-PAWN);
+  expect(get(board, 0, 3)).toBe(-KING);
+  expect(validMoves(board)).toStrictEqual([]);
 });
