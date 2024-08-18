@@ -42,3 +42,10 @@ test("1x9", () => {
   expect(get(board, 0, 8)).toBe(-KING)
   expect(validMoves(board).length).toBe(1)
 })
+test("8x8", () => {
+  const board = initialBoard(8, 8)
+  expect(get(board, 0, 0)).toBe(ROOK)
+  expect(get(board, 1, 0)).toBe(KNIGHT)
+  expect(get(board, 2, 0)).toBe(BISHOP)
+  expect(get(board, 0, 1)).toBe(PAWN)
+})
