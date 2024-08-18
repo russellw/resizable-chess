@@ -33,3 +33,11 @@ test('staticVal decreases if you delete a rook', () => {
   const b = staticVal(board)
   expect(a).toBeGreaterThan(b);
 });
+test('1x9', () => {
+  const board = initialBoard(1, 9)
+  expect(get(board, 0, 0)).toBe(KING);
+  expect(get(board, 0, 1)).toBe(PAWN);
+  expect(get(board, 0, 7)).toBe(-PAWN);
+  expect(get(board, 0, 8)).toBe(-KING);
+  expect(validMoves(board).length).toBe(1);
+});
