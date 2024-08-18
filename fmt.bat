@@ -1,2 +1,2 @@
-call jsfmt -w *.js lib/*.js test/*.js
+call prettier --no-semi -w .
 git diff
