@@ -1,3 +1,4 @@
+'use strict'
 Object.assign(global, require('../lib'));
 
 test('pieces are distinct', () => {
