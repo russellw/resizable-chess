@@ -1,4 +1,4 @@
-Object.assign(global, require('../lib/index'));
+Object.assign(global, require('../lib'));
 
 test('pieces are distinct', () => {
   expect(BISHOP).not.toBe(KNIGHT);
