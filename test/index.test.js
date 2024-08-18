@@ -1,4 +1,4 @@
-Object.assign(global, require('../lib/chess'));
+Object.assign(global, require('../lib/index'));
 
 test('pieces are distinct', () => {
   expect(BISHOP).not.toBe(KNIGHT);
