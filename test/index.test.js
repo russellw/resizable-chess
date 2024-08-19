@@ -306,3 +306,37 @@ test("move 1x8", () => {
   let moves = validMoves(a)
   expect(moves.length).toBe(2)
 })
+
+test("pawn moves", () => {
+  let board
+
+  board = initialBoard(1, 4)
+  expect(validMoves(board).length).toBe(0)
+
+  board = initialBoard(1, 5)
+  expect(validMoves(board).length).toBe(1)
+
+  board = initialBoard(1, 6)
+  expect(validMoves(board).length).toBe(1)
+
+  board = initialBoard(1, 7)
+  expect(validMoves(board).length).toBe(1)
+
+  board = initialBoard(1, 8)
+  expect(validMoves(board).length).toBe(2)
+
+  board = initialBoard(1, 9)
+  expect(validMoves(board).length).toBe(2)
+
+  board = initialBoard(1, 10)
+  expect(validMoves(board).length).toBe(3)
+
+  board = initialBoard(1, 11)
+  expect(validMoves(board).length).toBe(3)
+
+  board = initialBoard(1, 12)
+  expect(validMoves(board).length).toBe(4)
+
+  board = initialBoard(1, 13)
+  expect(validMoves(board).length).toBe(4)
+})
