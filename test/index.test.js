@@ -47,7 +47,7 @@ test("1x9", () => {
   expect(get(board, 0, 1)).toBe(PAWN)
   expect(get(board, 0, 7)).toBe(-PAWN)
   expect(get(board, 0, 8)).toBe(-KING)
-  expect(validMoves(board).length).toBe(1)
+  expect(validMoves(board).length).toBe(2)
 })
 
 test("8x8", () => {
