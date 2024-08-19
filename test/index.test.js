@@ -191,8 +191,7 @@ function stringsBoard(v) {
   const board = emptyBoard(width, height)
   for (let y = 0; y < height; y++) {
     if (v[y].length != width) throw new Error(v[y])
-    for (let x = 0; x < width; x++)
-      put(board, x, height - 1 - y, charPiece(v[y][x]))
+    for (let x = 0; x < width; x++) put(board, x, height - 1 - y, charPiece(v[y][x]))
   }
   verify(board)
   return board
