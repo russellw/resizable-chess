@@ -238,3 +238,71 @@ test("move", () => {
   b = stringsBoard(b)
   expect(boardEq(move(a, moves[0]), b)).toBe(true)
 })
+
+test("move 1x6", () => {
+  let a = []
+  a.push("k")
+  a.push("p")
+  a.push(".")
+  a.push(".")
+  a.push("P")
+  a.push("K")
+  a = stringsBoard(a)
+
+  let moves = validMoves(a)
+  expect(moves.length).toBe(1)
+  expect(move(a, moves[0]).turn).toBe(-1)
+
+  let b = []
+  b.push("k")
+  b.push("p")
+  b.push(".")
+  b.push("P")
+  b.push(".")
+  b.push("K")
+  b = stringsBoard(b)
+  expect(boardEq(move(a, moves[0]), b)).toBe(true)
+})
+
+test("move 1x7", () => {
+  let a = []
+  a.push("k")
+  a.push("p")
+  a.push(".")
+  a.push(".")
+  a.push(".")
+  a.push("P")
+  a.push("K")
+  a = stringsBoard(a)
+
+  let moves = validMoves(a)
+  expect(moves.length).toBe(1)
+  expect(move(a, moves[0]).turn).toBe(-1)
+
+  let b = []
+  b.push("k")
+  b.push("p")
+  b.push(".")
+  b.push(".")
+  b.push("P")
+  b.push(".")
+  b.push("K")
+  b = stringsBoard(b)
+  expect(boardEq(move(a, moves[0]), b)).toBe(true)
+})
+
+test("move 1x8", () => {
+  let a = []
+  a.push("k")
+  a.push("p")
+  a.push(".")
+  a.push(".")
+  a.push(".")
+  a.push(".")
+  a.push("P")
+  a.push("K")
+  a = stringsBoard(a)
+
+  let moves = validMoves(a)
+  expect(moves.length).toBe(2)
+})
