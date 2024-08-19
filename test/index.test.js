@@ -340,3 +340,62 @@ test("pawn moves", () => {
   board = initialBoard(1, 13)
   expect(validMoves(board).length).toBe(4)
 })
+
+test("pawn moves, other side", () => {
+  let board
+
+  board = initialBoard(1, 4)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(0)
+
+  board = initialBoard(1, 5)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(1)
+
+  board = initialBoard(1, 6)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(1)
+
+  board = initialBoard(1, 7)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(1)
+
+  board = initialBoard(1, 8)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(2)
+
+  board = initialBoard(1, 9)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(2)
+
+  board = initialBoard(1, 10)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(3)
+
+  board = initialBoard(1, 11)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(3)
+
+  board = initialBoard(1, 12)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(4)
+
+  board = initialBoard(1, 13)
+  board.turn = -1
+  expect(validMoves(board).length).toBe(4)
+})
+
+test("7x8", () => {
+  const v = []
+  v.push("rnbkbnr")
+  v.push("ppppppp")
+  v.push(".......")
+  v.push(".......")
+  v.push(".......")
+  v.push(".......")
+  v.push("PPPPPPP")
+  v.push("RNBKBNR")
+  const a = stringsBoard(v)
+  const b = initialBoard(7, 8)
+  expect(boardEq(a, b)).toBe(true)
+})
