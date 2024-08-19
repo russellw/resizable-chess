@@ -227,6 +227,7 @@ test("move", () => {
 
   let moves = validMoves(a)
   expect(moves.length).toBe(1)
+  expect(move(a, moves[0]).turn).toBe(-1)
 
   let b = []
   b.push("k")
