@@ -55,6 +55,8 @@ test("8x8", () => {
   expect(get(board, 0, 0)).toBe(ROOK)
   expect(get(board, 1, 0)).toBe(KNIGHT)
   expect(get(board, 2, 0)).toBe(BISHOP)
+  expect(get(board, 3, 0)).toBe(QUEEN)
+  expect(get(board, 4, 0)).toBe(KING)
   expect(get(board, 0, 1)).toBe(PAWN)
 })
 
@@ -63,4 +65,11 @@ test("1x5", () => {
   const b = initialBoard(1, 5)
   for (let i = 0; i < a.length; i++) expect(a[i]).toBe(b[i])
   expect(validMoves(b).length).toBe(1)
+})
+
+test("2x5", () => {
+  const a = [QUEEN, KING, PAWN, PAWN, 0, 0, -PAWN, -PAWN, -QUEEN, -KING]
+  const b = initialBoard(2, 5)
+  for (let i = 0; i < a.length; i++) expect(a[i]).toBe(b[i])
+  expect(validMoves(b).length).toBe(2)
 })
