@@ -127,11 +127,13 @@ test("isUpperCase", () => {
 
 function charPiece(c) {
   if (!isAlpha(c)) return 0
+
   let minus = false
   if (isLowerCase(c)) {
     c = c.toUpperCase()
     minus = true
   }
+
   let piece
   switch (c) {
     case "K":
@@ -155,6 +157,7 @@ function charPiece(c) {
     default:
       throw new Error(c)
   }
+
   if (minus) return -piece
   return piece
 }
