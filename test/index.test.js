@@ -399,3 +399,8 @@ test("7x8", () => {
   const b = initialBoard(7, 8)
   expect(boardEq(a, b)).toBe(true)
 })
+
+test("moves 8x8", () => {
+  let board = initialBoard(8, 8)
+  expect(validMoves(board).length).toBe(20)
+})
