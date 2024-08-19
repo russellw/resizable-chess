@@ -27,7 +27,7 @@ test("1x4", () => {
 })
 
 test("1x4 pawnless", () => {
-  const board = blankBoard(1, 4)
+  const board = emptyBoard(1, 4)
   put(board, 0, 0, KING)
   put(board, 0, 3, -KING)
   expect(validMoves(board).length).toBe(1)
@@ -188,7 +188,7 @@ test("boardEq", () => {
 function stringsBoard(v) {
   const width = v[0].length
   const height = v.length
-  const board = blankBoard(width, height)
+  const board = emptyBoard(width, height)
   for (let y = 0; y < height; y++) {
     if (v[y].length != width) throw new Error(v[y])
     for (let x = 0; x < width; x++)
