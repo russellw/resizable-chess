@@ -194,6 +194,7 @@ function stringsBoard(v) {
     for (let x = 0; x < width; x++)
       put(board, x, height - 1 - y, charPiece(v[y][x]))
   }
+  verify(board)
   return board
 }
 
@@ -402,5 +403,6 @@ test("7x8", () => {
 
 test("moves 8x8", () => {
   let board = initialBoard(8, 8)
+  verify(board)
   expect(validMoves(board).length).toBe(20)
 })
