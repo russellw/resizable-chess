@@ -453,4 +453,5 @@ test("check", () => {
   b = initialBoard(1, 3)
   expect(check(b, 1)).toBe(false)
   expect(check(b, -1)).toBe(false)
+  expect(validMoves(b).length).toBe(0)
 })
