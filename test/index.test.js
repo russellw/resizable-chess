@@ -431,4 +431,22 @@ test("check", () => {
   b = stringsBoard(b)
   expect(check(b, 1)).toBe(true)
   expect(check(b, -1)).toBe(true)
+
+  b = []
+  b.push(".k.K")
+  b.push("....")
+  b.push("....")
+  b.push("q...")
+  b = stringsBoard(b)
+  expect(check(b, 1)).toBe(true)
+  expect(check(b, -1)).toBe(false)
+
+  b = []
+  b.push(".k.K")
+  b.push("....")
+  b.push("....")
+  b.push("...r")
+  b = stringsBoard(b)
+  expect(check(b, 1)).toBe(true)
+  expect(check(b, -1)).toBe(false)
 })
