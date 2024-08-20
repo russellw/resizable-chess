@@ -408,3 +408,18 @@ test("moves 8x8", () => {
   verify(board)
   expect(validMoves(board).length).toBe(20)
 })
+
+test("check", () => {
+  let b = initialBoard(8, 8)
+  expect(check(b, 1)).toBe(false)
+  expect(check(b, -1)).toBe(false)
+
+  b = []
+  b.push("...k")
+  b.push(".n..")
+  b.push("....")
+  b.push("K...")
+  b = stringsBoard(b)
+  expect(check(b, 1)).toBe(true)
+  expect(check(b, -1)).toBe(false)
+})
