@@ -449,4 +449,8 @@ test("check", () => {
   b = stringsBoard(b)
   expect(check(b, 1)).toBe(true)
   expect(check(b, -1)).toBe(false)
+
+  b = initialBoard(1, 3)
+  expect(check(b, 1)).toBe(false)
+  expect(check(b, -1)).toBe(false)
 })
