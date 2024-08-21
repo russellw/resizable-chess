@@ -23,14 +23,14 @@ test("1x4", () => {
   expect(at(board, 0, 1)).toBe(PAWN)
   expect(at(board, 0, 2)).toBe(-PAWN)
   expect(at(board, 0, 3)).toBe(-KING)
-  expect(validMoves(board)).toStrictEqual([])
+  expect(moves(board)).toStrictEqual([])
 })
 
 test("1x4 pawnless", () => {
   const board = emptyBoard(1, 4)
   put(board, 0, 0, KING)
   put(board, 0, 3, -KING)
-  expect(validMoves(board).length).toBe(1)
+  expect(moves(board).length).toBe(1)
 })
 
 test("staticVal decreases if you delete a rook", () => {
@@ -47,7 +47,7 @@ test("1x9", () => {
   expect(at(board, 0, 1)).toBe(PAWN)
   expect(at(board, 0, 7)).toBe(-PAWN)
   expect(at(board, 0, 8)).toBe(-KING)
-  expect(validMoves(board).length).toBe(2)
+  expect(moves(board).length).toBe(2)
 })
 
 test("8x8", () => {
@@ -64,14 +64,14 @@ test("1x5", () => {
   const a = [KING, PAWN, 0, -PAWN, -KING]
   const b = initialBoard(1, 5)
   for (let i = 0; i < a.length; i++) expect(a[i]).toBe(b[i])
-  expect(validMoves(b).length).toBe(1)
+  expect(moves(b).length).toBe(1)
 })
 
 test("2x5", () => {
   const a = [QUEEN, KING, PAWN, PAWN, 0, 0, -PAWN, -PAWN, -QUEEN, -KING]
   const b = initialBoard(2, 5)
   for (let i = 0; i < a.length; i++) expect(a[i]).toBe(b[i])
-  expect(validMoves(b).length).toBe(2)
+  expect(moves(b).length).toBe(2)
 })
 
 function isAlpha(c) {
@@ -228,7 +228,7 @@ test("move", () => {
   a.push("K")
   a = stringsBoard(a)
 
-  let v = validMoves(a)
+  let v = moves(a)
   expect(v.length).toBe(1)
   expect(v[0].turn).toBe(-1)
 
@@ -252,7 +252,7 @@ test("move 1x6", () => {
   a.push("K")
   a = stringsBoard(a)
 
-  let v = validMoves(a)
+  let v = moves(a)
   expect(v.length).toBe(1)
   expect(v[0].turn).toBe(-1)
 
@@ -278,7 +278,7 @@ test("move 1x7", () => {
   a.push("K")
   a = stringsBoard(a)
 
-  let v = validMoves(a)
+  let v = moves(a)
   expect(v.length).toBe(1)
   expect(v[0].turn).toBe(-1)
 
@@ -306,7 +306,7 @@ test("move 1x8", () => {
   a.push("K")
   a = stringsBoard(a)
 
-  let v = validMoves(a)
+  let v = moves(a)
   expect(v.length).toBe(2)
 })
 
@@ -314,34 +314,34 @@ test("pawn moves", () => {
   let board
 
   board = initialBoard(1, 4)
-  expect(validMoves(board).length).toBe(0)
+  expect(moves(board).length).toBe(0)
 
   board = initialBoard(1, 5)
-  expect(validMoves(board).length).toBe(1)
+  expect(moves(board).length).toBe(1)
 
   board = initialBoard(1, 6)
-  expect(validMoves(board).length).toBe(1)
+  expect(moves(board).length).toBe(1)
 
   board = initialBoard(1, 7)
-  expect(validMoves(board).length).toBe(1)
+  expect(moves(board).length).toBe(1)
 
   board = initialBoard(1, 8)
-  expect(validMoves(board).length).toBe(2)
+  expect(moves(board).length).toBe(2)
 
   board = initialBoard(1, 9)
-  expect(validMoves(board).length).toBe(2)
+  expect(moves(board).length).toBe(2)
 
   board = initialBoard(1, 10)
-  expect(validMoves(board).length).toBe(3)
+  expect(moves(board).length).toBe(3)
 
   board = initialBoard(1, 11)
-  expect(validMoves(board).length).toBe(3)
+  expect(moves(board).length).toBe(3)
 
   board = initialBoard(1, 12)
-  expect(validMoves(board).length).toBe(4)
+  expect(moves(board).length).toBe(4)
 
   board = initialBoard(1, 13)
-  expect(validMoves(board).length).toBe(4)
+  expect(moves(board).length).toBe(4)
 })
 
 test("pawn moves, other side", () => {
@@ -349,43 +349,43 @@ test("pawn moves, other side", () => {
 
   board = initialBoard(1, 4)
   board.turn = -1
-  expect(validMoves(board).length).toBe(0)
+  expect(moves(board).length).toBe(0)
 
   board = initialBoard(1, 5)
   board.turn = -1
-  expect(validMoves(board).length).toBe(1)
+  expect(moves(board).length).toBe(1)
 
   board = initialBoard(1, 6)
   board.turn = -1
-  expect(validMoves(board).length).toBe(1)
+  expect(moves(board).length).toBe(1)
 
   board = initialBoard(1, 7)
   board.turn = -1
-  expect(validMoves(board).length).toBe(1)
+  expect(moves(board).length).toBe(1)
 
   board = initialBoard(1, 8)
   board.turn = -1
-  expect(validMoves(board).length).toBe(2)
+  expect(moves(board).length).toBe(2)
 
   board = initialBoard(1, 9)
   board.turn = -1
-  expect(validMoves(board).length).toBe(2)
+  expect(moves(board).length).toBe(2)
 
   board = initialBoard(1, 10)
   board.turn = -1
-  expect(validMoves(board).length).toBe(3)
+  expect(moves(board).length).toBe(3)
 
   board = initialBoard(1, 11)
   board.turn = -1
-  expect(validMoves(board).length).toBe(3)
+  expect(moves(board).length).toBe(3)
 
   board = initialBoard(1, 12)
   board.turn = -1
-  expect(validMoves(board).length).toBe(4)
+  expect(moves(board).length).toBe(4)
 
   board = initialBoard(1, 13)
   board.turn = -1
-  expect(validMoves(board).length).toBe(4)
+  expect(moves(board).length).toBe(4)
 })
 
 test("7x8", () => {
@@ -406,7 +406,7 @@ test("7x8", () => {
 test("moves 8x8", () => {
   let board = initialBoard(8, 8)
   verify(board)
-  expect(validMoves(board).length).toBe(20)
+  expect(moves(board).length).toBe(20)
 })
 
 test("check", () => {
@@ -453,7 +453,7 @@ test("check", () => {
   b = initialBoard(1, 3)
   expect(check(b, 1)).toBe(false)
   expect(check(b, -1)).toBe(false)
-  expect(validMoves(b).length).toBe(0)
+  expect(moves(b).length).toBe(0)
 })
 
 function possibleCheck(v) {
@@ -468,7 +468,7 @@ test("check moves", () => {
   b.push("....")
   b.push("KR..")
   b = stringsBoard(b)
-  let v = validMoves(b)
+  let v = moves(b)
   expect(possibleCheck(v)).toBe(true)
 
   b = []
@@ -477,6 +477,6 @@ test("check moves", () => {
   b.push("....")
   b.push("KB..")
   b = stringsBoard(b)
-  v = validMoves(b)
+  v = moves(b)
   expect(possibleCheck(v)).toBe(false)
 })
