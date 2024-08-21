@@ -455,3 +455,28 @@ test("check", () => {
   expect(check(b, -1)).toBe(false)
   expect(validMoves(b).length).toBe(0)
 })
+
+function possibleCheck(v) {
+  for (const b of v) if (b.check) return true
+  return false
+}
+
+test("check moves", () => {
+  let b = []
+  b.push("...k")
+  b.push("....")
+  b.push("....")
+  b.push("KR..")
+  b = stringsBoard(b)
+  let v = validMoves(b)
+  expect(possibleCheck(v)).toBe(true)
+
+  b = []
+  b.push("...k")
+  b.push("....")
+  b.push("....")
+  b.push("KB..")
+  b = stringsBoard(b)
+  v = validMoves(b)
+  expect(possibleCheck(v)).toBe(false)
+})
