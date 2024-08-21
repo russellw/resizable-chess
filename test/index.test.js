@@ -480,3 +480,18 @@ test("check moves", () => {
   v = moves(b)
   expect(possibleCheck(v)).toBe(false)
 })
+
+test("minimax", () => {
+  let b = initialBoard(1, 3)
+  expect(minimax(b, 9, 0, 0)).toBe(0)
+
+  b = []
+  b.push("k")
+  b.push(".")
+  b.push("r")
+  b.push(".")
+  b.push("K")
+  b = stringsBoard(b)
+  b.check = true
+  expect(minimax(b, 9, 0, 0)).toBe(-Infinity)
+})
