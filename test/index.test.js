@@ -75,7 +75,7 @@ test("2x5", () => {
 })
 
 function isAlpha(c) {
-  if (c.length != 1) throw new Error(c)
+  if (c.length !== 1) throw new Error(c)
   const rx = /[a-zA-Z]/
   return rx.test(c)
 }
@@ -92,7 +92,7 @@ test("isAlpha", () => {
 })
 
 function isLowerCase(c) {
-  if (c.length != 1) throw new Error(c)
+  if (c.length !== 1) throw new Error(c)
   const rx = /[a-z]/
   return rx.test(c)
 }
@@ -109,7 +109,7 @@ test("isLowerCase", () => {
 })
 
 function isUpperCase(c) {
-  if (c.length != 1) throw new Error(c)
+  if (c.length !== 1) throw new Error(c)
   const rx = /[A-Z]/
   return rx.test(c)
 }
@@ -172,8 +172,8 @@ test("charPiece", () => {
 })
 
 function boardEq(a, b) {
-  if (a.length != b.length) throw new Error()
-  for (let i = 0; i < a.length; i++) if (a[i] != b[i]) return false
+  if (a.length !== b.length) throw new Error()
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false
   return true
 }
 
@@ -193,7 +193,7 @@ function stringsBoard(v) {
   const height = v.length
   const board = emptyBoard(width, height)
   for (let y = 0; y < height; y++) {
-    if (v[y].length != width) throw new Error(v[y])
+    if (v[y].length !== width) throw new Error(v[y])
     for (let x = 0; x < width; x++) put(board, x, height - 1 - y, charPiece(v[y][x]))
   }
   verify(board)
