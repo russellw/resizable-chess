@@ -5,11 +5,13 @@ rem These need to go in the specified order
 do-all-recur . comment-space -w||exit /b
 do-all-recur . capitalize-comments -w||exit /b
 
+do-all-recur lib sort-cases -w||exit /b
+do-all-recur lib sort-case-blocks -w||exit /b
+
 rem These can go in any order
 do-all-recur . js-equals -w||exit /b
 do-all-recur . remove-trail-space -w||exit /b
 do-all-recur lib sort-fns-js -w||exit /b
 do-all-recur lib sort-marked-lines -w||exit /b
-do-all-recur lib sort-cases -w||exit /b
 
 git diff
