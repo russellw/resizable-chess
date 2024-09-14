@@ -6,7 +6,7 @@ test("pieces are distinct", () => {
 })
 
 test("board size", () => {
-  expect(initialBoard(6, 6).length).toBe(36)
+  expect(initialBoard(6, 6).array.length).toBe(36)
 })
 
 test("minimum width", () => {
