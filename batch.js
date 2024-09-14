@@ -1,7 +1,10 @@
 "use strict"
 Object.assign(global, require("./lib"))
 
-for (let i = 1; i <= 16; i++) {
-  let board = initialBoard(i, 4)
-  printBoard(board)
-}
+const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+process.stdout.write(fen)
+process.stdout.write("\n")
+
+const result = decodeFEN(fen, 8, 8)
+dbg(result)
+printBoard(result)

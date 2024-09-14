@@ -495,3 +495,50 @@ test("minimax", () => {
   b.check = true
   expect(minimax(b, 9)).toBe(-Infinity)
 })
+
+describe("decodeFEN", () => {
+  test("Standard 8x8 starting position", () => {
+    const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+    const board = decodeFEN(fen, 8, 8)
+
+    expect(board.turn).toBe(1) // White's turn
+    expect(board[56]).toBe(-ROOK) // Top-left square is black rook
+    expect(board[63]).toBe(-ROOK) // Top-right square is black rook
+    expect(board[0]).toBe(ROOK) // Bottom-left square is white rook
+    expect(board[7]).toBe(ROOK) // Bottom-right square is white rook
+  })
+
+  test("Black's turn", () => {
+    const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1"
+    const board = decodeFEN(fen, 8, 8)
+
+    expect(board.turn).toBe(-1) // Black's turn
+  })
+
+  test("Arbitrary 10x10 board", () => {
+    const fen = "rnbqkbnrpp/pppppppppp/10/10/10/10///PPPPPPPPPP/RNBQKBNRPP w KQkq - 0 1"
+    const board = decodeFEN(fen, 10, 10)
+
+    expect(board.length).toBe(100) // 10x10 board should have 100 squares
+    expect(board[0]).toBe(ROOK)
+    expect(board[99]).toBe(-PAWN)
+  })
+
+  test("Empty board", () => {
+    const fen = "8/8/8/8/8/8/8/8 w - - 0 1"
+    const board = decodeFEN(fen, 8, 8)
+
+    const emptyBoard = new Int8Array(8 * 8)
+    expect(boardEq(board, emptyBoard)).toBe(true)
+    expect(board.turn).toBe(1) // It should be White's turn
+  })
+
+  test("Non-standard height (5x8 board)", () => {
+    const fen = "rnbqkbnr/pppppppp/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+    const board = decodeFEN(fen, 8, 5)
+
+    expect(board.length).toBe(40) // 5x8 board should have 40 squares
+    expect(board[0]).toBe(ROOK)
+    expect(board[39]).toBe(-ROOK)
+  })
+})
