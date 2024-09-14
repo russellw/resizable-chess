@@ -196,7 +196,6 @@ function stringsBoard(v) {
     if (v[y].length !== width) throw new Error(v[y])
     for (let x = 0; x < width; x++) board.put(x, height - 1 - y, charPiece(v[y][x]))
   }
-  verify(board)
   return board
 }
 
@@ -558,4 +557,24 @@ test("movesVals", () => {
   v = movesVals(board, 2)
   expect(v.length).toBe(1)
   expect(v[0].val).toBe(0)
+})
+
+test("valid", () => {
+  let b = []
+  b.push("k")
+  b.push("p")
+  b.push("P")
+  b.push(".")
+  b.push("K")
+  b = stringsBoard(b)
+  expect(valid(b)).toBe(true)
+
+  b = []
+  b.push("r")
+  b.push("p")
+  b.push("P")
+  b.push(".")
+  b.push("K")
+  b = stringsBoard(b)
+  expect(valid(b)).toBe(false)
 })
