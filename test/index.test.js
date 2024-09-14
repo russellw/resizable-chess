@@ -63,14 +63,14 @@ test("8x8", () => {
 test("1x5", () => {
   const a = [KING, PAWN, 0, -PAWN, -KING]
   const b = initialBoard(1, 5)
-  for (let i = 0; i < a.length; i++) expect(a[i]).toBe(b[i])
+  for (let i = 0; i < a.length; i++) expect(a[i]).toBe(b.array[i])
   expect(moves(b).length).toBe(1)
 })
 
 test("2x5", () => {
   const a = [QUEEN, KING, PAWN, PAWN, 0, 0, -PAWN, -PAWN, -QUEEN, -KING]
   const b = initialBoard(2, 5)
-  for (let i = 0; i < a.length; i++) expect(a[i]).toBe(b[i])
+  for (let i = 0; i < a.length; i++) expect(a[i]).toBe(b.array[i])
   expect(moves(b).length).toBe(2)
 })
 
@@ -172,19 +172,19 @@ test("charPiece", () => {
 })
 
 function boardEq(a, b) {
-  if (a.length !== b.length) throw new Error()
-  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false
+  if (a.array.length !== b.array.length) throw new Error()
+  for (let i = 0; i < a.array.length; i++) if (a.array[i] !== b.array[i]) return false
   return true
 }
 
 test("boardEq", () => {
   expect(() => boardEq([0], [0, 0])).toThrow()
 
-  const a = [KING, PAWN, 0, -PAWN, -KING]
+  const a = initialBoard(1, 5)
   const b = initialBoard(1, 5)
   expect(boardEq(a, b)).toBe(true)
 
-  b[0] = QUEEN
+  b.array[0] = QUEEN
   expect(boardEq(a, b)).toBe(false)
 })
 
@@ -502,10 +502,10 @@ describe("decodeFEN", () => {
     const board = decodeFEN(fen, 8, 8)
 
     expect(board.turn).toBe(1) // White's turn
-    expect(board[56]).toBe(-ROOK) // Top-left square is black rook
-    expect(board[63]).toBe(-ROOK) // Top-right square is black rook
-    expect(board[0]).toBe(ROOK) // Bottom-left square is white rook
-    expect(board[7]).toBe(ROOK) // Bottom-right square is white rook
+    expect(board.array[56]).toBe(-ROOK) // Top-left square is black rook
+    expect(board.array[63]).toBe(-ROOK) // Top-right square is black rook
+    expect(board.array[0]).toBe(ROOK) // Bottom-left square is white rook
+    expect(board.array[7]).toBe(ROOK) // Bottom-right square is white rook
   })
 
   test("Black's turn", () => {
@@ -519,16 +519,16 @@ describe("decodeFEN", () => {
     const fen = "rnbqkbnrpp/pppppppppp/10/10/10/10///PPPPPPPPPP/RNBQKBNRPP w KQkq - 0 1"
     const board = decodeFEN(fen, 10, 10)
 
-    expect(board.length).toBe(100) // 10x10 board should have 100 squares
-    expect(board[0]).toBe(ROOK)
-    expect(board[99]).toBe(-PAWN)
+    expect(board.array.length).toBe(100) // 10x10 board should have 100 squares
+    expect(board.array[0]).toBe(ROOK)
+    expect(board.array[99]).toBe(-PAWN)
   })
 
   test("Empty board", () => {
     const fen = "8/8/8/8/8/8/8/8 w - - 0 1"
     const board = decodeFEN(fen, 8, 8)
 
-    const empty = new Int8Array(8 * 8)
+    const empty = new Board(8, 8)
     expect(boardEq(board, empty)).toBe(true)
     expect(board.turn).toBe(1) // It should be White's turn
   })
@@ -537,8 +537,8 @@ describe("decodeFEN", () => {
     const fen = "rnbqkbnr/pppppppp/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
     const board = decodeFEN(fen, 8, 5)
 
-    expect(board.length).toBe(40) // 5x8 board should have 40 squares
-    expect(board[0]).toBe(ROOK)
-    expect(board[39]).toBe(-ROOK)
+    expect(board.array.length).toBe(40) // 5x8 board should have 40 squares
+    expect(board.array[0]).toBe(ROOK)
+    expect(board.array[39]).toBe(-ROOK)
   })
 })
