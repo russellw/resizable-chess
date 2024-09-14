@@ -28,15 +28,15 @@ test("1x4", () => {
 
 test("1x4 pawnless", () => {
   const board = new Board(1, 4)
-  put(board, 0, 0, KING)
-  put(board, 0, 3, -KING)
+  board.put(0, 0, KING)
+  board.put(0, 3, -KING)
   expect(moves(board).length).toBe(1)
 })
 
 test("staticVal decreases if you delete a rook", () => {
   const board = initialBoard(8, 8)
   const a = staticVal(board)
-  put(board, 0, 0, 0)
+  board.put(0, 0, 0)
   const b = staticVal(board)
   expect(a).toBeGreaterThan(b)
 })
@@ -194,7 +194,7 @@ function stringsBoard(v) {
   const board = new Board(width, height)
   for (let y = 0; y < height; y++) {
     if (v[y].length !== width) throw new Error(v[y])
-    for (let x = 0; x < width; x++) put(board, x, height - 1 - y, charPiece(v[y][x]))
+    for (let x = 0; x < width; x++) board.put(x, height - 1 - y, charPiece(v[y][x]))
   }
   verify(board)
   return board
