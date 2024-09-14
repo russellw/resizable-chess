@@ -19,10 +19,10 @@ test("minimum height", () => {
 
 test("1x4", () => {
   const board = initialBoard(1, 4)
-  expect(at(board, 0, 0)).toBe(KING)
-  expect(at(board, 0, 1)).toBe(PAWN)
-  expect(at(board, 0, 2)).toBe(-PAWN)
-  expect(at(board, 0, 3)).toBe(-KING)
+  expect(board.at(0, 0)).toBe(KING)
+  expect(board.at(0, 1)).toBe(PAWN)
+  expect(board.at(0, 2)).toBe(-PAWN)
+  expect(board.at(0, 3)).toBe(-KING)
   expect(moves(board)).toStrictEqual([])
 })
 
@@ -43,21 +43,21 @@ test("staticVal decreases if you delete a rook", () => {
 
 test("1x9", () => {
   const board = initialBoard(1, 9)
-  expect(at(board, 0, 0)).toBe(KING)
-  expect(at(board, 0, 1)).toBe(PAWN)
-  expect(at(board, 0, 7)).toBe(-PAWN)
-  expect(at(board, 0, 8)).toBe(-KING)
+  expect(board.at(0, 0)).toBe(KING)
+  expect(board.at(0, 1)).toBe(PAWN)
+  expect(board.at(0, 7)).toBe(-PAWN)
+  expect(board.at(0, 8)).toBe(-KING)
   expect(moves(board).length).toBe(2)
 })
 
 test("8x8", () => {
   const board = initialBoard(8, 8)
-  expect(at(board, 0, 0)).toBe(ROOK)
-  expect(at(board, 1, 0)).toBe(KNIGHT)
-  expect(at(board, 2, 0)).toBe(BISHOP)
-  expect(at(board, 3, 0)).toBe(QUEEN)
-  expect(at(board, 4, 0)).toBe(KING)
-  expect(at(board, 0, 1)).toBe(PAWN)
+  expect(board.at(0, 0)).toBe(ROOK)
+  expect(board.at(1, 0)).toBe(KNIGHT)
+  expect(board.at(2, 0)).toBe(BISHOP)
+  expect(board.at(3, 0)).toBe(QUEEN)
+  expect(board.at(4, 0)).toBe(KING)
+  expect(board.at(0, 1)).toBe(PAWN)
 })
 
 test("1x5", () => {
