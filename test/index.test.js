@@ -483,7 +483,7 @@ test("check moves", () => {
 
 test("minimax", () => {
   let b = initialBoard(1, 3)
-  expect(minimax(b, 9, 0, 0)).toBe(0)
+  expect(minimax(b, 9)).toBe(0)
 
   b = []
   b.push("k")
@@ -493,5 +493,5 @@ test("minimax", () => {
   b.push("K")
   b = stringsBoard(b)
   b.check = true
-  expect(minimax(b, 9, 0, 0)).toBe(-Infinity)
+  expect(minimax(b, 9)).toBe(-Infinity)
 })
