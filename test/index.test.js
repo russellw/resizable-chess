@@ -653,3 +653,16 @@ test("Can't make a move that leaves you in check", () => {
   v = moves(b)
   expect(v.length).toBe(2)
 })
+
+test("checkmate", () => {
+  let b = []
+  b.push("k...")
+  b.push("....")
+  b.push("....")
+  b.push("RR.K")
+  b = stringsBoard(b)
+  b.turn = -1
+  b.check = check(b, b.turn)
+  expect(valid(b)).toBe(true)
+  expect(minimax(b, 0)).toBe(Infinity)
+})
