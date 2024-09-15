@@ -27,7 +27,7 @@ test("1x4", () => {
 })
 
 test("1x4 pawnless", () => {
-  const board = new Board(1, 4)
+  const board = emptyBoard(1, 4)
   board.put(0, 0, KING)
   board.put(0, 3, -KING)
   expect(moves(board).length).toBe(1)
@@ -191,7 +191,7 @@ test("boardEq", () => {
 function stringsBoard(v) {
   const width = v[0].length
   const height = v.length
-  const board = new Board(width, height)
+  const board = emptyBoard(width, height)
   for (let y = 0; y < height; y++) {
     if (v[y].length !== width) throw new Error(v[y])
     for (let x = 0; x < width; x++) board.put(x, height - 1 - y, charPiece(v[y][x]))
@@ -527,7 +527,7 @@ describe("decodeFEN", () => {
     const fen = "8/8/8/8/8/8/8/8 w - - 0 1"
     const board = decodeFEN(fen, 8, 8)
 
-    const empty = new Board(8, 8)
+    const empty = emptyBoard(8, 8)
     expect(boardEq(board, empty)).toBe(true)
     expect(board.turn).toBe(1) // It should be White's turn
   })
