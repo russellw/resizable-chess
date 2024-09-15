@@ -2,7 +2,7 @@
 const assert = require("assert")
 Object.assign(global, require("../lib"))
 
-let board = initialBoard(3, 3)
+let board = initialBoard(4, 4)
 for (let depth = 1; depth <= 10; depth++) {
   const start = Date.now()
   const v = movesVals(board, depth)
