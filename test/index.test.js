@@ -404,7 +404,7 @@ test("7x8", () => {
 
 test("moves 8x8", () => {
   let board = initialBoard(8, 8)
-  verify(board)
+  expect(valid(board)).toBe(true)
   expect(moves(board).length).toBe(20)
 })
 
