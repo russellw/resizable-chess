@@ -625,3 +625,16 @@ test("valid", () => {
   b = stringsBoard(b)
   expect(valid(b)).toBe(false)
 })
+
+test("Can't make a move that leaves you in check", () => {
+  let b = []
+  b.push("Rkr")
+  b.push("...")
+  b.push(".KR")
+  b = stringsBoard(b)
+  b.turn = -1
+  expect(valid(b)).toBe(true)
+
+  const v = moves(b)
+  expect(v.length).toBe(1)
+})
