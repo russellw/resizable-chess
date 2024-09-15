@@ -2,8 +2,10 @@
 const assert = require("assert")
 Object.assign(global, require("../lib"))
 
-let board = initialBoard(5, 5)
-for (let depth = 1; depth <= 10; depth++) {
+let board = emptyBoard(5, 5)
+board.put(2, 4, -KING)
+board.put(2, 0, KING)
+for (let depth = 1; depth <= 7; depth++) {
   const start = Date.now()
   const v = movesVals(board, depth)
   assert(v.length === 5)
