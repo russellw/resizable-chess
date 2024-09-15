@@ -449,7 +449,7 @@ test("check", () => {
   expect(check(b, 1)).toBe(true)
   expect(check(b, -1)).toBe(false)
 
-  b = initialBoard(1, 3)
+  b = initialBoard(1, 4)
   expect(check(b, 1)).toBe(false)
   expect(check(b, -1)).toBe(false)
   expect(moves(b).length).toBe(0)
@@ -481,7 +481,7 @@ test("check moves", () => {
 })
 
 test("minimax", () => {
-  let b = initialBoard(1, 3)
+  let b = initialBoard(1, 4)
   expect(minimax(b, 9)).toBe(0)
 
   b = []
@@ -630,16 +630,18 @@ test("Can't make a move that leaves you in check", () => {
   let b = []
   b.push("Rkr")
   b.push("...")
+  b.push("...")
   b.push(".KR")
   b = stringsBoard(b)
   b.turn = -1
   expect(valid(b)).toBe(true)
 
   let v = moves(b)
-  expect(v.length).toBe(1)
+  expect(v.length).toBe(2)
 
   b = []
   b.push("k.R")
+  b.push("...")
   b.push("...")
   b.push(".K.")
   b = stringsBoard(b)
@@ -647,5 +649,5 @@ test("Can't make a move that leaves you in check", () => {
   expect(valid(b)).toBe(true)
 
   v = moves(b)
-  expect(v.length).toBe(0)
+  expect(v.length).toBe(2)
 })
