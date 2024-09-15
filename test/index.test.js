@@ -495,6 +495,53 @@ test("minimax", () => {
   expect(minimax(b, 9)).toBe(-Infinity)
 })
 
+function decodeFEN(fen, width, height) {
+  const [position, turn] = fen.split(" ")
+  const rows = position.split("/")
+
+  let board = emptyBoard(width, height)
+
+  // Map FEN piece characters to values
+  const pieceMap = {
+    P: PAWN,
+    N: KNIGHT,
+    B: BISHOP,
+    R: ROOK,
+    Q: QUEEN,
+    K: KING,
+    p: -PAWN,
+    n: -KNIGHT,
+    b: -BISHOP,
+    r: -ROOK,
+    q: -QUEEN,
+    k: -KING,
+  }
+
+  // Fill the board based on FEN notation
+  let y = height - 1
+  for (let row of rows) {
+    let x = 0
+    for (let char of row) {
+      if (char >= "1" && char <= "9") {
+        // Handle empty squares
+        x += parseInt(char, 10)
+      } else {
+        // Map the piece character to the board
+        if (!(0 <= x && x < width)) throw new Error(x)
+        if (!(0 <= y && y < height)) throw new Error(y)
+        board.put(x, y, pieceMap[char])
+        x++
+      }
+    }
+    y--
+  }
+
+  // Determine whose turn it is (1 for white, -1 for black)
+  board.turn = turn === "w" ? 1 : -1
+
+  return board
+}
+
 describe("decodeFEN", () => {
   test("Standard 8x8 starting position", () => {
     const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
