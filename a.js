@@ -1,6 +1,6 @@
 "use strict"
 Object.assign(global, require("./lib"))
 
-let b = initialBoard(3, 3)
+let b = initialBoard(4, 4)
 minimax(b, 0)
 printTree(b)
