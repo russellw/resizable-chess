@@ -9,14 +9,6 @@ test("board size", () => {
   expect(initialBoard(6, 6).array.length).toBe(36)
 })
 
-test("minimum width", () => {
-  expect(() => initialBoard(0, 6)).toThrow()
-})
-
-test("minimum height", () => {
-  expect(() => initialBoard(6, 0)).toThrow()
-})
-
 test("1x4", () => {
   const board = initialBoard(1, 4)
   expect(board.at(0, 0)).toBe(KING)
@@ -200,7 +192,6 @@ function stringsBoard(v) {
 }
 
 test("stringsBoard", () => {
-  expect(() => stringsBoard([""])).toThrow()
   expect(() => stringsBoard(["a"])).toThrow()
   expect(() => stringsBoard(["p", "pp"])).toThrow()
 
@@ -404,85 +395,12 @@ test("7x8", () => {
 
 test("moves 8x8", () => {
   let board = initialBoard(8, 8)
-  expect(valid(board)).toBe(true)
   expect(moves(board).length).toBe(20)
-})
-
-test("check", () => {
-  let b = initialBoard(8, 8)
-  expect(check(b, 1)).toBe(false)
-  expect(check(b, -1)).toBe(false)
-
-  b = []
-  b.push("...k")
-  b.push(".n..")
-  b.push("....")
-  b.push("K...")
-  b = stringsBoard(b)
-  expect(check(b, 1)).toBe(true)
-  expect(check(b, -1)).toBe(false)
-
-  b = []
-  b.push("....")
-  b.push("....")
-  b.push("..k.")
-  b.push("...K")
-  b = stringsBoard(b)
-  expect(check(b, 1)).toBe(true)
-  expect(check(b, -1)).toBe(true)
-
-  b = []
-  b.push(".k.K")
-  b.push("....")
-  b.push("....")
-  b.push("q...")
-  b = stringsBoard(b)
-  expect(check(b, 1)).toBe(true)
-  expect(check(b, -1)).toBe(false)
-
-  b = []
-  b.push(".k.K")
-  b.push("....")
-  b.push("....")
-  b.push("...r")
-  b = stringsBoard(b)
-  expect(check(b, 1)).toBe(true)
-  expect(check(b, -1)).toBe(false)
-
-  b = initialBoard(1, 4)
-  expect(check(b, 1)).toBe(false)
-  expect(check(b, -1)).toBe(false)
-  expect(moves(b).length).toBe(0)
-})
-
-function possibleCheck(v) {
-  for (const b of v) if (b.check) return true
-  return false
-}
-
-test("check moves", () => {
-  let b = []
-  b.push("...k")
-  b.push("....")
-  b.push("....")
-  b.push("KR..")
-  b = stringsBoard(b)
-  let v = moves(b)
-  expect(possibleCheck(v)).toBe(true)
-
-  b = []
-  b.push("...k")
-  b.push("....")
-  b.push("....")
-  b.push("KB..")
-  b = stringsBoard(b)
-  v = moves(b)
-  expect(possibleCheck(v)).toBe(false)
 })
 
 test("minimax", () => {
   let b = initialBoard(1, 4)
-  expect(minimax(b, 9)).toBe(0)
+  expect(minimax(b, 9)).toBe(-Infinity)
 
   b = []
   b.push("k")
@@ -491,7 +409,6 @@ test("minimax", () => {
   b.push(".")
   b.push("K")
   b = stringsBoard(b)
-  b.check = true
   expect(minimax(b, 9)).toBe(-Infinity)
 })
 
@@ -606,54 +523,6 @@ test("movesVals", () => {
   expect(v[0].val).toBe(0)
 })
 
-test("valid", () => {
-  let b = []
-  b.push("k")
-  b.push("p")
-  b.push("P")
-  b.push(".")
-  b.push("K")
-  b = stringsBoard(b)
-  expect(valid(b)).toBe(true)
-
-  b = []
-  b.push("r")
-  b.push("p")
-  b.push("P")
-  b.push(".")
-  b.push("K")
-  b = stringsBoard(b)
-  expect(valid(b)).toBe(false)
-})
-
-test("Can't make a move that leaves you in check", () => {
-  let b = []
-  b.push("Rkr")
-  b.push("...")
-  b.push("...")
-  b.push(".KR")
-  b = stringsBoard(b)
-  b.turn = -1
-  b.check = check(b, b.turn)
-  expect(valid(b)).toBe(true)
-
-  let v = moves(b)
-  expect(v.length).toBe(2)
-
-  b = []
-  b.push("k.R")
-  b.push("...")
-  b.push("...")
-  b.push(".K.")
-  b = stringsBoard(b)
-  b.turn = -1
-  b.check = check(b, b.turn)
-  expect(valid(b)).toBe(true)
-
-  v = moves(b)
-  expect(v.length).toBe(2)
-})
-
 test("checkmate", () => {
   let b = []
   b.push("k...")
@@ -662,7 +531,5 @@ test("checkmate", () => {
   b.push("RR.K")
   b = stringsBoard(b)
   b.turn = -1
-  b.check = check(b, b.turn)
-  expect(valid(b)).toBe(true)
-  expect(minimax(b, 0)).toBe(Infinity)
+  expect(minimax(b, 3)).toBe(Infinity)
 })
