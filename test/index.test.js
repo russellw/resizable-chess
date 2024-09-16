@@ -562,4 +562,7 @@ test("simple results", () => {
   b.push("K")
   b = stringsBoard(b)
   expect(minimax(b, 10)).toBe(Infinity)
+
+  b = initialBoard(2, 2)
+  expect(minimax(b, 10)).toBe(Infinity)
 })
