@@ -533,3 +533,33 @@ test("checkmate", () => {
   b.turn = -1
   expect(minimax(b, 3)).toBe(Infinity)
 })
+
+test("simple results", () => {
+  for (let p of "BKNPQR.bknpqr") {
+    let b = []
+    b.push(p)
+    b = stringsBoard(b)
+    expect(minimax(b, 3)).toBe(-Infinity)
+  }
+
+  let b = []
+  b.push("k")
+  b.push("K")
+  b = stringsBoard(b)
+  expect(minimax(b, 3)).toBe(Infinity)
+
+  b = []
+  b.push("k")
+  b.push(".")
+  b.push("K")
+  b = stringsBoard(b)
+  expect(minimax(b, 3)).toBe(-Infinity)
+
+  b = []
+  b.push("k")
+  b.push(".")
+  b.push(".")
+  b.push("K")
+  b = stringsBoard(b)
+  expect(minimax(b, 10)).toBe(Infinity)
+})
