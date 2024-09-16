@@ -1,5 +1,5 @@
 "use strict"
 Object.assign(global, require("./lib"))
 
-let b = initialBoard(4, 4)
+let b = initialBoard(8, 8)
 console.log(b.str())
