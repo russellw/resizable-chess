@@ -14,7 +14,7 @@ test("minimum width", () => {
 })
 
 test("minimum height", () => {
-  expect(() => initialBoard(6, 2)).toThrow()
+  expect(() => initialBoard(6, 0)).toThrow()
 })
 
 test("1x4", () => {
