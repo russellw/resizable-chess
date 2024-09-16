@@ -563,6 +563,12 @@ test("simple results", () => {
   b = stringsBoard(b)
   expect(minimax(b, 10)).toBe(Infinity)
 
+  b = initialBoard(1, 4)
+  expect(minimax(b, 10)).toBe(-Infinity)
+
+  b = initialBoard(1, 5)
+  expect(minimax(b, 10)).toBe(Infinity)
+
   b = initialBoard(2, 2)
   expect(minimax(b, 10)).toBe(Infinity)
 })
