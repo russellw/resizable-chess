@@ -309,7 +309,7 @@ describe("decodeFEN", () => {
   })
 
   test("Arbitrary 10x10 board", () => {
-    const fen = "rnbqkbnrpp/pppppppppp/10/10/10/10///PPPPPPPPPP/RNBQKBNRPP w KQkq - 0 1"
+    const fen = "rnbqkbnrpp/pppppppppp///////PPPPPPPPPP/RNBQKBNRPP w KQkq - 0 1"
     const board = decodeFEN(10, 10, fen)
 
     expect(board.array.length).toBe(100) // 10x10 board should have 100 squares
@@ -456,42 +456,6 @@ test("bestMove returns the best move", () => {
   v = []
   v.push("qQ")
   v.push(".K")
-  let b = decodeArray(v, -1)
-
-  expect(bestMove(a, 5).eq(b)).toBe(true)
-})
-
-test("bestMove returns the best move", () => {
-  let v
-
-  v = []
-  v.push("k")
-  v.push("K")
-  v.push(".")
-  let a = decodeArray(v)
-
-  v = []
-  v.push("K")
-  v.push(".")
-  v.push(".")
-  let b = decodeArray(v, -1)
-
-  expect(bestMove(a, 5).eq(b)).toBe(true)
-})
-
-test("bestMove returns the best move", () => {
-  let v
-
-  v = []
-  v.push(".")
-  v.push("K")
-  v.push("k")
-  let a = decodeArray(v)
-
-  v = []
-  v.push(".")
-  v.push(".")
-  v.push("K")
   let b = decodeArray(v, -1)
 
   expect(bestMove(a, 5).eq(b)).toBe(true)
