@@ -467,3 +467,39 @@ test("bestMove returns the best move", () => {
 
   expect(bestMove(a, 5).eq(b)).toBe(true)
 })
+
+test("bestMove returns the best move", () => {
+  let v
+
+  v = []
+  v.push("k")
+  v.push("K")
+  v.push(".")
+  let a = decodeArray(v)
+
+  v = []
+  v.push("K")
+  v.push(".")
+  v.push(".")
+  let b = decodeArray(v, -1)
+
+  expect(bestMove(a, 5).eq(b)).toBe(true)
+})
+
+test("bestMove returns the best move", () => {
+  let v
+
+  v = []
+  v.push(".")
+  v.push("K")
+  v.push("k")
+  let a = decodeArray(v)
+
+  v = []
+  v.push(".")
+  v.push(".")
+  v.push("K")
+  let b = decodeArray(v, -1)
+
+  expect(bestMove(a, 5).eq(b)).toBe(true)
+})
