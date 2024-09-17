@@ -441,3 +441,13 @@ test("should allow non-repetitive moves", () => {
   nextBoard = move(nextBoard, 4, 1, 5, 1)
   expect(nextBoard).not.toBeNull()
 })
+
+test("bestMove returns null if no legal moves", () => {
+  const board = initialBoard(1, 4)
+  expect(bestMove(board, 2)).toBeNull()
+})
+
+test("bestMove returns the only move available", () => {
+  const board = initialBoard(1, 3)
+  expect(bestMove(board, 2).at(0, 1)).toBe(KING)
+})
