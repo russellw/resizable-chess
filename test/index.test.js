@@ -68,16 +68,16 @@ test("boardEq", () => {
   expect(boardEq(a, b)).toBe(false)
 })
 
-function stringsBoard(v, turn = 1) {
+function decodeArray(v, turn = 1) {
   const width = v[0].length
   const height = v.length
   turn = turn === 1 ? "w" : "b"
   return decodeFEN(width, height, `${v.join("/")} ${turn}`)
 }
 
-test("stringsBoard", () => {
-  expect(() => stringsBoard(["a"])).toThrow()
-  expect(() => stringsBoard(["p", "pp"])).toThrow()
+test("decodeArray", () => {
+  expect(() => decodeArray(["a"])).toThrow()
+  expect(() => decodeArray(["p", "pp"])).toThrow()
 
   const v = []
   v.push("rnbqkbnr")
@@ -88,7 +88,7 @@ test("stringsBoard", () => {
   v.push("........")
   v.push("PPPPPPPP")
   v.push("RNBQKBNR")
-  const a = stringsBoard(v)
+  const a = decodeArray(v)
   const b = initialBoard(8, 8)
   expect(boardEq(a, b)).toBe(true)
 })
@@ -100,7 +100,7 @@ test("move", () => {
   a.push(".")
   a.push("P")
   a.push("K")
-  a = stringsBoard(a)
+  a = decodeArray(a)
 
   let v = moves(a)
   expect(v.length).toBe(1)
@@ -112,7 +112,7 @@ test("move", () => {
   b.push("P")
   b.push(".")
   b.push("K")
-  b = stringsBoard(b)
+  b = decodeArray(b)
   expect(boardEq(v[0], b)).toBe(true)
 })
 
@@ -124,7 +124,7 @@ test("move 1x6", () => {
   a.push(".")
   a.push("P")
   a.push("K")
-  a = stringsBoard(a)
+  a = decodeArray(a)
 
   let v = moves(a)
   expect(v.length).toBe(1)
@@ -137,7 +137,7 @@ test("move 1x6", () => {
   b.push("P")
   b.push(".")
   b.push("K")
-  b = stringsBoard(b)
+  b = decodeArray(b)
   expect(boardEq(v[0], b)).toBe(true)
 })
 
@@ -150,7 +150,7 @@ test("move 1x7", () => {
   a.push(".")
   a.push("P")
   a.push("K")
-  a = stringsBoard(a)
+  a = decodeArray(a)
 
   let v = moves(a)
   expect(v.length).toBe(1)
@@ -164,7 +164,7 @@ test("move 1x7", () => {
   b.push("P")
   b.push(".")
   b.push("K")
-  b = stringsBoard(b)
+  b = decodeArray(b)
   expect(boardEq(v[0], b)).toBe(true)
 })
 
@@ -178,7 +178,7 @@ test("move 1x8", () => {
   a.push(".")
   a.push("P")
   a.push("K")
-  a = stringsBoard(a)
+  a = decodeArray(a)
 
   let v = moves(a)
   expect(v.length).toBe(2)
@@ -272,7 +272,7 @@ test("7x8", () => {
   v.push(".......")
   v.push("PPPPPPP")
   v.push("RNBKBNR")
-  const a = stringsBoard(v)
+  const a = decodeArray(v)
   const b = initialBoard(7, 8)
   expect(boardEq(a, b)).toBe(true)
 })
@@ -292,7 +292,7 @@ test("minimax", () => {
   b.push("r")
   b.push(".")
   b.push("K")
-  b = stringsBoard(b)
+  b = decodeArray(b)
   expect(minimax(b, 9)).toBe(-Infinity)
 })
 
@@ -365,7 +365,7 @@ test("checkmate", () => {
   b.push("....")
   b.push("....")
   b.push("RR.K")
-  b = stringsBoard(b)
+  b = decodeArray(b)
   b.turn = -1
   expect(minimax(b, 3)).toBe(Infinity)
 })
@@ -374,21 +374,21 @@ test("simple results", () => {
   for (let p of "BKNPQR.bknpqr") {
     let b = []
     b.push(p)
-    b = stringsBoard(b)
+    b = decodeArray(b)
     expect(minimax(b, 3)).toBe(-Infinity)
   }
 
   let b = []
   b.push("k")
   b.push("K")
-  b = stringsBoard(b)
+  b = decodeArray(b)
   expect(minimax(b, 3)).toBe(Infinity)
 
   b = []
   b.push("k")
   b.push(".")
   b.push("K")
-  b = stringsBoard(b)
+  b = decodeArray(b)
   expect(minimax(b, 3)).toBe(-Infinity)
 
   b = []
@@ -396,7 +396,7 @@ test("simple results", () => {
   b.push(".")
   b.push(".")
   b.push("K")
-  b = stringsBoard(b)
+  b = decodeArray(b)
   expect(minimax(b, 10)).toBe(Infinity)
 
   b = initialBoard(1, 4)
