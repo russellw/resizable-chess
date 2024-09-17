@@ -342,19 +342,19 @@ describe("decodeFEN", () => {
   })
 })
 
-test("movesVals", () => {
+test("moves", () => {
   const fen = "k/1/1/1/1/1/1/1/1/K w"
   const board = decodeFEN(1, 10, fen)
 
-  let v = movesVals(board, 1)
+  let v = moves(board, 1)
   expect(v.length).toBe(1)
   expect(v[0].val).toBe(0)
 
-  v = movesVals(board, 2)
+  v = moves(board, 2)
   expect(v.length).toBe(1)
   expect(v[0].val).toBe(0)
 
-  v = movesVals(board, 3)
+  v = moves(board, 3)
   expect(v.length).toBe(1)
   expect(v[0].val).toBe(0)
 })
