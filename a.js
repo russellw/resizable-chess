@@ -1,7 +1,7 @@
 "use strict"
 Object.assign(global, require("./lib"))
 
-let a = initialBoard(3, 3)
+let a = initialBoard(4, 4)
 printBoard(a)
 
 for (let i = 1; i < 10; i++) {
