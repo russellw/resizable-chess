@@ -451,3 +451,19 @@ test("bestMove returns the only move available", () => {
   const board = initialBoard(1, 3)
   expect(bestMove(board, 2).at(0, 1)).toBe(KING)
 })
+
+test("bestMove returns the best move", () => {
+  let v
+
+  v = []
+  v.push("qk")
+  v.push("QK")
+  let a = decodeArray(v)
+
+  v = []
+  v.push("qQ")
+  v.push(".K")
+  let b = decodeArray(v, -1)
+
+  expect(bestMove(a, 5).eq(b)).toBe(true)
+})
