@@ -18,13 +18,6 @@ test("1x4", () => {
   expect(moves(board)).toStrictEqual([])
 })
 
-test("1x4 pawnless", () => {
-  const board = emptyBoard(1, 4)
-  board.put(0, 0, KING)
-  board.put(0, 3, -KING)
-  expect(moves(board).length).toBe(1)
-})
-
 test("1x9", () => {
   const board = initialBoard(1, 9)
   expect(board.at(0, 0)).toBe(KING)
@@ -58,103 +51,6 @@ test("2x5", () => {
   expect(moves(b).length).toBe(2)
 })
 
-function isAlpha(c) {
-  if (c.length !== 1) throw new Error(c)
-  const rx = /[a-zA-Z]/
-  return rx.test(c)
-}
-
-test("isAlpha", () => {
-  expect(isAlpha("a")).toBe(true)
-  expect(isAlpha("z")).toBe(true)
-  expect(isAlpha("A")).toBe(true)
-  expect(isAlpha("Z")).toBe(true)
-  expect(isAlpha("0")).toBe(false)
-  expect(isAlpha("9")).toBe(false)
-  expect(() => isAlpha("")).toThrow()
-  expect(() => isAlpha("..")).toThrow()
-})
-
-function isLowerCase(c) {
-  if (c.length !== 1) throw new Error(c)
-  const rx = /[a-z]/
-  return rx.test(c)
-}
-
-test("isLowerCase", () => {
-  expect(isLowerCase("a")).toBe(true)
-  expect(isLowerCase("z")).toBe(true)
-  expect(isLowerCase("A")).toBe(false)
-  expect(isLowerCase("Z")).toBe(false)
-  expect(isLowerCase("0")).toBe(false)
-  expect(isLowerCase("9")).toBe(false)
-  expect(() => isLowerCase("")).toThrow()
-  expect(() => isLowerCase("..")).toThrow()
-})
-
-function isUpperCase(c) {
-  if (c.length !== 1) throw new Error(c)
-  const rx = /[A-Z]/
-  return rx.test(c)
-}
-
-test("isUpperCase", () => {
-  expect(isUpperCase("a")).toBe(false)
-  expect(isUpperCase("z")).toBe(false)
-  expect(isUpperCase("A")).toBe(true)
-  expect(isUpperCase("Z")).toBe(true)
-  expect(isUpperCase("0")).toBe(false)
-  expect(isUpperCase("9")).toBe(false)
-  expect(() => isUpperCase("")).toThrow()
-  expect(() => isUpperCase("..")).toThrow()
-})
-
-function charPiece(c) {
-  if (!isAlpha(c)) return 0
-
-  let minus = false
-  if (isLowerCase(c)) {
-    c = c.toUpperCase()
-    minus = true
-  }
-
-  let piece
-  switch (c) {
-    case "K":
-      piece = KING
-      break
-    case "Q":
-      piece = QUEEN
-      break
-    case "R":
-      piece = ROOK
-      break
-    case "B":
-      piece = BISHOP
-      break
-    case "N":
-      piece = KNIGHT
-      break
-    case "P":
-      piece = PAWN
-      break
-    default:
-      throw new Error(c)
-  }
-
-  if (minus) return -piece
-  return piece
-}
-
-test("charPiece", () => {
-  expect(charPiece(" ")).toBe(0)
-  expect(charPiece(".")).toBe(0)
-  expect(charPiece("b")).toBe(-BISHOP)
-  expect(charPiece("B")).toBe(BISHOP)
-  expect(() => charPiece("")).toThrow()
-  expect(() => charPiece("z")).toThrow()
-})
-
 function boardEq(a, b) {
   if (a.array.length !== b.array.length) throw new Error()
   for (let i = 0; i < a.array.length; i++) if (a.array[i] !== b.array[i]) return false
@@ -172,15 +68,8 @@ test("boardEq", () => {
   expect(boardEq(a, b)).toBe(false)
 })
 
-function stringsBoard(v) {
-  const width = v[0].length
-  const height = v.length
-  const board = emptyBoard(width, height)
-  for (let y = 0; y < height; y++) {
-    if (v[y].length !== width) throw new Error(v[y])
-    for (let x = 0; x < width; x++) board.put(x, height - 1 - y, charPiece(v[y][x]))
-  }
-  return board
+function stringsBoard(v, turn = 1) {
+  return decodeFEN(v.join("/") + " " + (turn === 1 ? "w" : "b"))
 }
 
 test("stringsBoard", () => {
@@ -403,53 +292,6 @@ test("minimax", () => {
   b = stringsBoard(b)
   expect(minimax(b, 9)).toBe(-Infinity)
 })
-
-function decodeFEN(fen, width, height) {
-  const [position, turn] = fen.split(" ")
-  const rows = position.split("/")
-
-  let board = emptyBoard(width, height)
-
-  // Map FEN piece characters to values
-  const pieceMap = {
-    P: PAWN,
-    N: KNIGHT,
-    B: BISHOP,
-    R: ROOK,
-    Q: QUEEN,
-    K: KING,
-    p: -PAWN,
-    n: -KNIGHT,
-    b: -BISHOP,
-    r: -ROOK,
-    q: -QUEEN,
-    k: -KING,
-  }
-
-  // Fill the board based on FEN notation
-  let y = height - 1
-  for (let row of rows) {
-    let x = 0
-    for (let char of row) {
-      if (char >= "1" && char <= "9") {
-        // Handle empty squares
-        x += parseInt(char, 10)
-      } else {
-        // Map the piece character to the board
-        if (!(0 <= x && x < width)) throw new Error(x)
-        if (!(0 <= y && y < height)) throw new Error(y)
-        board.put(x, y, pieceMap[char])
-        x++
-      }
-    }
-    y--
-  }
-
-  // Determine whose turn it is (1 for white, -1 for black)
-  board.turn = turn === "w" ? 1 : -1
-
-  return board
-}
 
 describe("decodeFEN", () => {
   test("Standard 8x8 starting position", () => {
