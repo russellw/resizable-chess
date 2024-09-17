@@ -51,21 +51,21 @@ test("2x5", () => {
   expect(moves(b).length).toBe(2)
 })
 
-function boardEq(a, b) {
+function eqPositions(a, b) {
   if (a.array.length !== b.array.length) throw new Error()
   for (let i = 0; i < a.array.length; i++) if (a.array[i] !== b.array[i]) return false
   return true
 }
 
-test("boardEq", () => {
-  expect(() => boardEq([0], [0, 0])).toThrow()
+test("eqPositions", () => {
+  expect(() => eqPositions([0], [0, 0])).toThrow()
 
   const a = initialBoard(1, 5)
   const b = initialBoard(1, 5)
-  expect(boardEq(a, b)).toBe(true)
+  expect(eqPositions(a, b)).toBe(true)
 
   b.array[0] = QUEEN
-  expect(boardEq(a, b)).toBe(false)
+  expect(eqPositions(a, b)).toBe(false)
 })
 
 function decodeArray(v, turn = 1) {
@@ -90,7 +90,7 @@ test("decodeArray", () => {
   v.push("RNBQKBNR")
   const a = decodeArray(v)
   const b = initialBoard(8, 8)
-  expect(boardEq(a, b)).toBe(true)
+  expect(eqPositions(a, b)).toBe(true)
 })
 
 test("move", () => {
@@ -113,7 +113,7 @@ test("move", () => {
   b.push(".")
   b.push("K")
   b = decodeArray(b)
-  expect(boardEq(v[0], b)).toBe(true)
+  expect(eqPositions(v[0], b)).toBe(true)
 })
 
 test("move 1x6", () => {
@@ -138,7 +138,7 @@ test("move 1x6", () => {
   b.push(".")
   b.push("K")
   b = decodeArray(b)
-  expect(boardEq(v[0], b)).toBe(true)
+  expect(eqPositions(v[0], b)).toBe(true)
 })
 
 test("move 1x7", () => {
@@ -165,7 +165,7 @@ test("move 1x7", () => {
   b.push(".")
   b.push("K")
   b = decodeArray(b)
-  expect(boardEq(v[0], b)).toBe(true)
+  expect(eqPositions(v[0], b)).toBe(true)
 })
 
 test("move 1x8", () => {
@@ -274,7 +274,7 @@ test("7x8", () => {
   v.push("RNBKBNR")
   const a = decodeArray(v)
   const b = initialBoard(7, 8)
-  expect(boardEq(a, b)).toBe(true)
+  expect(eqPositions(a, b)).toBe(true)
 })
 
 test("moves 8x8", () => {
