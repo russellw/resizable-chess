@@ -476,3 +476,24 @@ test("bestMove returns the best move for black", () => {
 
   expect(bestMove(a, 5).eq(b)).toBe(true)
 })
+
+test("bestMove returns the best move in 3x3", () => {
+  let v
+
+  let a = initialBoard(3, 3)
+
+  v = []
+  v.push("Rkr")
+  v.push("...")
+  v.push(".KR")
+  let b = decodeArray(v, -1)
+
+  v = []
+  v.push("rkR")
+  v.push("...")
+  v.push("RK.")
+  let c = decodeArray(v, -1)
+
+  let z = bestMove(a, 1)
+  expect(z.eq(b) || z.eq(c)).toBe(true)
+})

@@ -1,13 +1,11 @@
 "use strict"
 Object.assign(global, require("./lib"))
 
-let v
-
-v = []
-v.push("qk")
-v.push("QK")
-let a = decodeArray(v)
+let a = initialBoard(3, 3)
 printBoard(a)
 
-let b = bestMove(a, 5)
-printBoard(b)
+for (let i = 1; i < 10; i++) {
+  console.log(i)
+  let b = bestMove(a, i)
+  printBoard(b)
+}
