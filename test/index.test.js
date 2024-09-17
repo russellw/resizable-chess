@@ -69,7 +69,10 @@ test("boardEq", () => {
 })
 
 function stringsBoard(v, turn = 1) {
-  return decodeFEN(v.join("/") + " " + (turn === 1 ? "w" : "b"))
+  const width = v[0].length
+  const height = v.length
+  turn = turn === 1 ? "w" : "b"
+  return decodeFEN(width, height, `${v.join("/")} ${turn}`)
 }
 
 test("stringsBoard", () => {
@@ -296,7 +299,7 @@ test("minimax", () => {
 describe("decodeFEN", () => {
   test("Standard 8x8 starting position", () => {
     const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-    const board = decodeFEN(fen, 8, 8)
+    const board = decodeFEN(8, 8, fen)
 
     expect(board.turn).toBe(1) // White's turn
     expect(board.array[56]).toBe(-ROOK) // Top-left square is black rook
@@ -307,14 +310,14 @@ describe("decodeFEN", () => {
 
   test("Black's turn", () => {
     const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1"
-    const board = decodeFEN(fen, 8, 8)
+    const board = decodeFEN(8, 8, fen)
 
     expect(board.turn).toBe(-1) // Black's turn
   })
 
   test("Arbitrary 10x10 board", () => {
     const fen = "rnbqkbnrpp/pppppppppp/10/10/10/10///PPPPPPPPPP/RNBQKBNRPP w KQkq - 0 1"
-    const board = decodeFEN(fen, 10, 10)
+    const board = decodeFEN(10, 10, fen)
 
     expect(board.array.length).toBe(100) // 10x10 board should have 100 squares
     expect(board.array[0]).toBe(ROOK)
@@ -323,16 +326,15 @@ describe("decodeFEN", () => {
 
   test("Empty board", () => {
     const fen = "8/8/8/8/8/8/8/8 w - - 0 1"
-    const board = decodeFEN(fen, 8, 8)
+    const board = decodeFEN(8, 8, fen)
 
-    const empty = emptyBoard(8, 8)
-    expect(boardEq(board, empty)).toBe(true)
+    for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) expect(board.at(x, y)).toBe(0)
     expect(board.turn).toBe(1) // It should be White's turn
   })
 
   test("Non-standard height (5x8 board)", () => {
     const fen = "rnbqkbnr/pppppppp/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-    const board = decodeFEN(fen, 8, 5)
+    const board = decodeFEN(8, 5, fen)
 
     expect(board.array.length).toBe(40) // 5x8 board should have 40 squares
     expect(board.array[0]).toBe(ROOK)
@@ -342,7 +344,7 @@ describe("decodeFEN", () => {
 
 test("movesVals", () => {
   const fen = "k/1/1/1/1/1/1/1/1/K w"
-  const board = decodeFEN(fen, 1, 10)
+  const board = decodeFEN(1, 10, fen)
 
   let v = movesVals(board, 1)
   expect(v.length).toBe(1)
