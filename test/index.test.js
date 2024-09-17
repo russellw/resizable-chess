@@ -408,3 +408,36 @@ test("simple results", () => {
   b = initialBoard(2, 2)
   expect(minimax(b, 10)).toBe(Infinity)
 })
+
+test("should disallow a complex repetition of board state (superko)", () => {
+  // Initial board with both players
+  const board = decodeFEN(8, 8, "8/8/8/4k3/8/8/4K3/8 w - - 0 1")
+
+  // Move white King to F3
+  let nextBoard = move(board, 4, 0, 5, 1)
+  expect(nextBoard).not.toBeNull()
+
+  // Move black King back to E5
+  nextBoard = move(nextBoard, 4, 4, 5, 4)
+  expect(nextBoard).not.toBeNull()
+
+  // Move white King back
+  nextBoard = move(nextBoard, 5, 1, 4, 0)
+  expect(nextBoard).not.toBeNull()
+
+  // Repeating board position with black King
+  nextBoard = move(nextBoard, 5, 4, 4, 4)
+  expect(nextBoard).toBeNull() // Expecting superko prevention
+})
+
+test("should allow non-repetitive moves", () => {
+  const board = decodeFEN(8, 8, "8/8/8/8/8/8/4k3/4K3 w - - 0 1")
+
+  // White King moves
+  let nextBoard = move(board, 4, 0, 5, 1)
+  expect(nextBoard).not.toBeNull()
+
+  // Black King moves in a different direction
+  nextBoard = move(nextBoard, 4, 1, 5, 1)
+  expect(nextBoard).not.toBeNull()
+})
