@@ -460,3 +460,19 @@ test("bestMove returns the best move", () => {
 
   expect(bestMove(a, 5).eq(b)).toBe(true)
 })
+
+test("bestMove returns the best move for black", () => {
+  let v
+
+  v = []
+  v.push("qk")
+  v.push("QK")
+  let a = decodeArray(v, -1)
+
+  v = []
+  v.push(".k")
+  v.push("Qq")
+  let b = decodeArray(v, 1)
+
+  expect(bestMove(a, 5).eq(b)).toBe(true)
+})
