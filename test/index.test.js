@@ -68,13 +68,6 @@ test("eqPositions", () => {
   expect(eqPositions(a, b)).toBe(false)
 })
 
-function decodeArray(v, turn = 1) {
-  const width = v[0].length
-  const height = v.length
-  turn = turn === 1 ? "w" : "b"
-  return decodeFEN(width, height, `${v.join("/")} ${turn}`)
-}
-
 test("decodeArray", () => {
   expect(() => decodeArray(["a"])).toThrow()
   expect(() => decodeArray(["p", "pp"])).toThrow()
