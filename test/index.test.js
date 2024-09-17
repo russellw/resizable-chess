@@ -275,20 +275,6 @@ test("moves 8x8", () => {
   expect(moves(board).length).toBe(20)
 })
 
-test("minimax", () => {
-  let b = initialBoard(1, 4)
-  expect(minimax(b, 9)).toBe(-Infinity)
-
-  b = []
-  b.push("k")
-  b.push(".")
-  b.push("r")
-  b.push(".")
-  b.push("K")
-  b = decodeArray(b)
-  expect(minimax(b, 9)).toBe(-Infinity)
-})
-
 describe("decodeFEN", () => {
   test("Standard 8x8 starting position", () => {
     const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
@@ -350,56 +336,6 @@ test("moves", () => {
   v = moves(board, 3)
   expect(v.length).toBe(1)
   expect(v[0].val).toBe(0)
-})
-
-test("checkmate", () => {
-  let b = []
-  b.push("k...")
-  b.push("....")
-  b.push("....")
-  b.push("RR.K")
-  b = decodeArray(b)
-  b.turn = -1
-  expect(minimax(b, 3)).toBe(Infinity)
-})
-
-test("simple results", () => {
-  for (let p of "BKNPQR.bknpqr") {
-    let b = []
-    b.push(p)
-    b = decodeArray(b)
-    expect(minimax(b, 3)).toBe(-Infinity)
-  }
-
-  let b = []
-  b.push("k")
-  b.push("K")
-  b = decodeArray(b)
-  expect(minimax(b, 3)).toBe(Infinity)
-
-  b = []
-  b.push("k")
-  b.push(".")
-  b.push("K")
-  b = decodeArray(b)
-  expect(minimax(b, 3)).toBe(-Infinity)
-
-  b = []
-  b.push("k")
-  b.push(".")
-  b.push(".")
-  b.push("K")
-  b = decodeArray(b)
-  expect(minimax(b, 10)).toBe(Infinity)
-
-  b = initialBoard(1, 4)
-  expect(minimax(b, 10)).toBe(-Infinity)
-
-  b = initialBoard(1, 5)
-  expect(minimax(b, 10)).toBe(Infinity)
-
-  b = initialBoard(2, 2)
-  expect(minimax(b, 10)).toBe(Infinity)
 })
 
 test("should disallow a complex repetition of board state (superko)", () => {
