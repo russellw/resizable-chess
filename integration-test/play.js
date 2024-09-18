@@ -2,7 +2,7 @@
 const assert = require("assert")
 Object.assign(global, require("../lib"))
 
-let a = initialBoard(4, 4)
+let a = initialBoard(5, 5)
 for (let i = 1; ; i++) {
   printBoard(a)
   const start = Date.now()
