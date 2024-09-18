@@ -7,9 +7,8 @@ for (let i = 1; ; i++) {
   printBoard(a)
   const start = Date.now()
   const b = bestMove(a, 8)
-  if (a === null) {
-    console.log()
-    const color = b.turn < 0 ? "white" : "black"
+  if (b === null) {
+    const color = a.turn < 0 ? "white" : "black"
     console.log(`${color} wins`)
     break
   }
@@ -20,4 +19,5 @@ for (let i = 1; ; i++) {
   console.log(n)
   console.log(t)
   console.log(n / t)
+  console.log(a.val)
 }
