@@ -3,7 +3,7 @@ const assert = require("assert")
 Object.assign(global, require("../lib"))
 
 let a = initialBoard(6, 6)
-for (let i = 1; ; i++) {
+for (let i = 1; i <= 3; i++) {
   printBoard(a)
   const start = Date.now()
   const b = bestMove(a, 9)
