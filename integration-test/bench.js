@@ -2,11 +2,11 @@
 const assert = require("assert")
 Object.assign(global, require("../lib"))
 
-let a = initialBoard(6, 6)
+let a = initialBoard(4, 4)
 for (let i = 1; i <= 3; i++) {
   printBoard(a)
   const start = Date.now()
-  const b = bestMove(a, 9)
+  const b = bestMove(a, 10)
   if (b === null) {
     const color = a.turn < 0 ? "white" : "black"
     console.log(`${color} wins`)
