@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/russellw/resizable-chess/issues"
   },
-  "homepage": "https://github.com/russellw/resizable-chess#readme"
+  "homepage": "https://github.com/russellw/resizable-chess#readme",
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.3.0"
+  }
 }
