@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/russellw/resizable-chess#readme",
   "type": "module",
-  "dependencies": {
+  "devDependencies": {
     "chalk": "^5.3.0"
   }
 }
