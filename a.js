@@ -1,6 +1,8 @@
 "use strict"
 import chalk from "chalk"
 
+import * as engine from "./lib/index.js"
+
 function pieceChar(piece) {
   switch (piece) {
     case -BISHOP:
@@ -61,6 +63,8 @@ function printBoard(board) {
     process.stdout.write("\n")
   }
 }
+
+let a = chess.initialBoard(16, 16)
 
 // print text with different colors
 console.log(chalk.blue("This text is blue!"))

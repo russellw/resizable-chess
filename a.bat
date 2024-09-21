@@ -1,1 +1,1 @@
-node a.js|tee 1.log
+node a.js
