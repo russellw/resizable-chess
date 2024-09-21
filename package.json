@@ -1,7 +1,7 @@
 {
   "name": "resizable-chess",
   "version": "1.0.0",
-  "description": "Chess engine for any board size",
+  "description": "Chess variant with variable board size",
   "main": "index.js",
   "scripts": {
     "test": "jest"
