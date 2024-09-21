@@ -4,7 +4,7 @@
   "description": "Chess variant with variable board size",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
