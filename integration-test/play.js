@@ -1,5 +1,6 @@
 "use strict"
 const assert = require("assert")
+const oldEngine = require("index0")
 Object.assign(global, require("../lib"))
 
 let a = initialBoard(6, 6)
