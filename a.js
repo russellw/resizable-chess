@@ -1,6 +1,6 @@
 "use strict"
 import chalk from "chalk"
-import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, Engine,initialBoard } from "./lib/engine.js"
+import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, Engine, initialBoard } from "./lib/engine.js"
 
 let a = initialBoard(16, 16)
 console.log(a)

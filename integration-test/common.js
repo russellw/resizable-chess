@@ -1,7 +1,6 @@
 "use strict"
 import chalk from "chalk"
-import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, Engine,initialBoard } from "../lib/engine.js"
-
+import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, Engine, initialBoard } from "../lib/engine.js"
 
 function pieceChar(piece) {
   switch (piece) {
@@ -63,4 +62,3 @@ function printBoard(board) {
     process.stdout.write("\n")
   }
 }
-
