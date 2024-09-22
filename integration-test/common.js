@@ -2,6 +2,24 @@
 import chalk from "chalk"
 import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, Engine, initialBoard } from "../lib/engine.js"
 
+const charPiece = new Map([
+  // SORT
+  [".", 0],
+  ["B", BISHOP],
+  ["K", KING],
+  ["N", KNIGHT],
+  ["P", PAWN],
+  ["Q", QUEEN],
+  ["R", ROOK],
+  ["b", -BISHOP],
+  ["k", -KING],
+  ["n", -KNIGHT],
+  ["p", -PAWN],
+  ["q", -QUEEN],
+  ["r", -ROOK],
+  //
+])
+
 function pieceChar(piece) {
   switch (piece) {
     case -BISHOP:
@@ -34,7 +52,7 @@ function pieceChar(piece) {
   throw new Error(piece)
 }
 
-function printBoard(board) {
+export function printBoard(board) {
   // the move that was made
   if (board.piece) {
     printCoordinates(board.x, board.y)

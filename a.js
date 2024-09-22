@@ -1,15 +1,28 @@
 "use strict"
 import chalk from "chalk"
 import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, Engine, initialBoard } from "./lib/engine.js"
+import { printBoard } from "./integration-test/common.js"
 
-let a = initialBoard(16, 16)
-console.log(a)
+let board = initialBoard(10, 10)
+console.log(board)
+let white = new Engine(board, 1, "white")
+let black = new Engine(board, -1, "black")
 
-// print text with different colors
-console.log(chalk.blue("This text is blue!"))
-console.log(chalk.red("This text is red!"))
-console.log(chalk.green("This text is green!"))
+function takeTurn(player, opponent) {
+  console.log(player.name)
+  let start = Date.now()
+  let move = player.makeMove()
+  let t = (Date.now() - start) / 1000
+  console.log(t)
+  if (move === null) return false
+  putMove(move, board)
+  printBoard(move, board)
+  opponent.notifyMove(move)
+  return true
+}
 
-// you can also combine styles
-console.log(chalk.bold.yellow("This text is bold and yellow!"))
-console.log(chalk.bgCyan.black("This text has a cyan background and black text!"))
+for (let i = 1; ; i++) {
+  console.log(i)
+  if (!takeTurn(white, black)) break
+  if (!takeTurn(black, white)) break
+}
