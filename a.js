@@ -1,7 +1,7 @@
 "use strict"
 import chalk from "chalk"
 
-import * as engine from "./lib/index.js"
+import * as engine from "./lib/engine.js"
 
 function pieceChar(piece) {
   switch (piece) {
