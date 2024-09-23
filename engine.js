@@ -27,6 +27,10 @@ export function makeMove() {
   return b
 }
 
+function at(x, y) {
+  return board[x + y * width]
+}
+
 function dbg(a) {
   const stack = new Error().stack.split("\n")[2]
   console.log(stack.trim().replace(/^at\s+/g, ""))
@@ -357,10 +361,6 @@ function pieceVal(piece) {
 
 function put(x, y, piece) {
   board[x + y * width] = piece
-}
-
-function at(x, y) {
-  return board[x + y * width]
 }
 
 function staticVal() {
