@@ -17,16 +17,6 @@ export function init(w, h, b, c) {
 
 let nodes = 0
 
-export function makeMove() {
-  nodes = 0
-  const v = movesVals(5)
-  if (v.length === 0) return null
-  if (board.turn === 1) v.sort((a, b) => b.val - a.val)
-  else v.sort((a, b) => a.val - b.val)
-  const b = v[0]
-  return b
-}
-
 function at(x, y) {
   return board[x + y * width]
 }
@@ -36,6 +26,16 @@ function dbg(a) {
   console.log(stack.trim().replace(/^at\s+/g, ""))
   // https://nodejs.org/api/util.html#utilinspectobject-options
   console.log(util.inspect(a))
+}
+
+export function makeMove() {
+  nodes = 0
+  const v = movesVals(5)
+  if (v.length === 0) return null
+  if (board.turn === 1) v.sort((a, b) => b.val - a.val)
+  else v.sort((a, b) => a.val - b.val)
+  const b = v[0]
+  return b
 }
 
 function minimax(depth, alpha, beta) {
