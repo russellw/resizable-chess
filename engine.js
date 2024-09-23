@@ -1,25 +1,20 @@
 "use strict"
 import assert from "assert"
 import util from "util"
+import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK } from "./rules.js"
 
-export const BISHOP = 1
-export const KING = 2
-export const KNIGHT = 3
-export const PAWN = 4
-export const QUEEN = 5
-export const ROOK = 6
+let width = 0
+let height = 0
+let board = null
+let color = 0
 
-let width = 10
-let height = 10
-
-export let board = new Int8Array(width * height)
 let nodes = 0
 
-export function notifyMove(move) {
-  const x = move[0]
-  const y = move[1]
-  const x1 = move[2]
-  const y1 = move[3]
+export function init(w, h, b, c) {
+  width = w
+  height = h
+  board = b
+  color = c
 }
 
 export function makeMove() {
