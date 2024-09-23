@@ -15,7 +15,55 @@ export function init(w, h, b, c) {
   color = c
 }
 
+class Move {
+  // from
+  x = 0
+  y = 0
+
+  // to
+  x1 = 0
+  y1 = 0
+
+  // need to remember the pieces
+  // to retract moves when backtracking in the search tree
+  piece = 0
+  target = 0
+
+  constructor(x, y, x1, y1) {
+    this.x = x
+    this.y = y
+    this.x1 = x1
+    this.y1 = y1
+  }
+}
+
 let nodes = 0
+
+function apply(move) {
+  const x = move.x
+  const y = move.y
+  const x1 = move.x1
+  const y1 = move.y1
+
+  // from
+  let piece = at(x, y)
+  put(x, y, 0)
+  move.piece = piece
+
+  // to
+  move.target = at(x1, y1)
+  switch (piece) {
+    case -PAWN:
+      if (y1 === 0) piece = -QUEEN
+      break
+    case PAWN:
+      if (y1 === board.height - 1) piece = QUEEN
+      break
+  }
+  put(x1, y1, piece)
+
+  verifyMove(move)
+}
 
 function at(x, y) {
   return board[x + y * width]
@@ -62,41 +110,6 @@ function minimax(depth, alpha, beta) {
   }
 }
 
-// make a single move, and return the resulting board
-// or null if the move is invalid due to repetition
-// that is the only validity check performed here
-function move(x, y, x1, y1) {
-  const array = board.array
-  board = new Board(board.width, board.height, -board.turn)
-  board.array = new Int8Array(array)
-
-  board.x = x
-  board.y = y
-  board.x1 = x1
-  board.y1 = y1
-  let piece = at(x, y)
-  board.piece = piece
-  board.target = at(x1, y1)
-
-  // put the piece in the destination square
-  switch (piece) {
-    case -PAWN:
-      if (y1 === 0) piece = -QUEEN
-      break
-    case PAWN:
-      if (y1 === board.height - 1) piece = QUEEN
-      break
-  }
-  put(x1, y1, piece)
-
-  // clear the origin square
-  put(x, y, 0)
-
-  // superko
-  for (let b = board.prev; b !== null; b = b.prev) if (b.eq(board)) return null
-  return board
-}
-
 // calculate the moves the current player can make from a position
 // return a list of resulting boards
 // or the empty list if no moves are possible
@@ -104,7 +117,7 @@ function moves(turn) {
   const v = []
 
   // make a proposed move and add to the list of possible moves
-  // unless it is invalid due to bad destination/target or repetition
+  // unless it is invalid due to bad destination/target
   // return whether a long-range piece can keep going this direction
   function add(x1, y1) {
     // outside the board
@@ -124,11 +137,8 @@ function moves(turn) {
   }
 
   // make a proposed move and add to the list of possible moves
-  // unless it is invalid due to repetition
   function add1(x1, y1) {
-    const b = move(x, y, x1, y1)
-    if (b === null) return
-    v.push(b)
+    v.push(new Move(x, y, x1, y1))
   }
 
   function bishop() {
@@ -363,8 +373,55 @@ function put(x, y, piece) {
   board[x + y * width] = piece
 }
 
+function retract(move) {
+  verifyMove(move)
+  put(move.x1, move.y1, move.target)
+  put(move.x, move.y, move.piece)
+}
+
 function staticVal() {
   let val = 0.0
   for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) val += pieceVal(at(x, y))
   return val
+}
+
+function verifyMove(move) {
+  const x = move.x
+  const y = move.y
+  const x1 = move.x1
+  const y1 = move.y1
+  const piece = move.piece
+  const target = move.target
+
+  // coordinates in bounds
+  assert(0 <= x && x < width)
+  assert(0 <= y && y < height)
+  assert(0 <= x1 && x1 < width)
+  assert(0 <= y1 && y1 < height)
+
+  // moved an actual piece
+  assert(piece !== 0)
+
+  // did not take a piece of the same color
+  assert(Math.sign(piece) !== Math.sign(target))
+
+  // origin square is now vacant
+  assert(at(x, y) === 0)
+
+  // destination square is now occupied by the piece
+  if (at(x1, y1) === piece) return
+
+  // or there was a promotion
+  switch (piece) {
+    case -PAWN:
+      assert(y1 === 0)
+      assert(at(x1, y1) === -QUEEN)
+      break
+    case PAWN:
+      assert(y1 === board.height - 1)
+      assert(at(x1, y1) === QUEEN)
+      break
+    default:
+      throw new Error(piece)
+  }
 }
