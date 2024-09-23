@@ -8,14 +8,14 @@ let height = 0
 let board = null
 let color = 0
 
-let nodes = 0
-
 export function init(w, h, b, c) {
   width = w
   height = h
   board = b
   color = c
 }
+
+let nodes = 0
 
 export function makeMove() {
   nodes = 0
@@ -34,11 +34,11 @@ function dbg(a) {
   console.log(util.inspect(a))
 }
 
-function minimax(board, depth, alpha, beta) {
+function minimax(depth, alpha, beta) {
   nodes++
-  if (depth === 0) return staticVal(board)
+  if (depth === 0) return staticVal()
   depth--
-  const v = moves(board)
+  const v = moves()
   if (board.turn >= 0) {
     let val = -Infinity
     for (let i = 0; i < v.length; i++) {
@@ -61,18 +61,18 @@ function minimax(board, depth, alpha, beta) {
 // make a single move, and return the resulting board
 // or null if the move is invalid due to repetition
 // that is the only validity check performed here
-function move(board, x, y, x1, y1) {
+function move(x, y, x1, y1) {
   const array = board.array
-  board = new Board(board, board.width, board.height, -board.turn)
+  board = new Board(board.width, board.height, -board.turn)
   board.array = new Int8Array(array)
 
   board.x = x
   board.y = y
   board.x1 = x1
   board.y1 = y1
-  let piece = board.at(x, y)
+  let piece = at(x, y)
   board.piece = piece
-  board.target = board.at(x1, y1)
+  board.target = at(x1, y1)
 
   // put the piece in the destination square
   switch (piece) {
@@ -96,7 +96,7 @@ function move(board, x, y, x1, y1) {
 // calculate the moves the current player can make from a position
 // return a list of resulting boards
 // or the empty list if no moves are possible
-function moves(board) {
+function moves(turn) {
   const v = []
 
   // make a proposed move and add to the list of possible moves
@@ -108,7 +108,7 @@ function moves(board) {
     if (!(0 <= y1 && y1 < height)) return false
 
     // onto own piece (including null move)
-    const target = board.at(x1, y1)
+    const target = at(x1, y1)
     if (target * turn > 0) return false
 
     // valid move
@@ -122,7 +122,7 @@ function moves(board) {
   // make a proposed move and add to the list of possible moves
   // unless it is invalid due to repetition
   function add1(x1, y1) {
-    const b = move(board, x, y, x1, y1)
+    const b = move(x, y, x1, y1)
     if (b === null) return
     v.push(b)
   }
@@ -181,7 +181,7 @@ function moves(board) {
       for (;;) {
         y1++
         if (limit < y1) break
-        if (board.at(x, y1)) break
+        if (at(x, y1)) break
         if (!add(x, y1)) break
       }
 
@@ -192,13 +192,13 @@ function moves(board) {
       // diagonal west
       let x1 = x - 1
       if (0 <= x1) {
-        if (board.at(x1, y1) < 0) add1(x1, y1)
+        if (at(x1, y1) < 0) add1(x1, y1)
       }
 
       // diagonal east
       x1 = x + 1
       if (x1 < width) {
-        if (board.at(x1, y1) < 0) add1(x1, y1)
+        if (at(x1, y1) < 0) add1(x1, y1)
       }
     } else {
       // usually pawns can only move one square
@@ -212,7 +212,7 @@ function moves(board) {
       for (;;) {
         y1--
         if (y1 < limit) break
-        if (board.at(x, y1)) break
+        if (at(x, y1)) break
         if (!add(x, y1)) break
       }
 
@@ -223,13 +223,13 @@ function moves(board) {
       // diagonal west
       let x1 = x - 1
       if (0 <= x1) {
-        if (board.at(x1, y1) > 0) add1(x1, y1)
+        if (at(x1, y1) > 0) add1(x1, y1)
       }
 
       // diagonal east
       x1 = x + 1
       if (x1 < width) {
-        if (board.at(x1, y1) > 0) add1(x1, y1)
+        if (at(x1, y1) > 0) add1(x1, y1)
       }
     }
   }
@@ -271,7 +271,7 @@ function moves(board) {
   let kingExists = false
   for (var y = 0; y < height; y++)
     for (var x = 0; x < width; x++)
-      switch (board.at(x, y) * turn) {
+      switch (at(x, y) * turn) {
         case BISHOP:
           bishop()
           break
@@ -311,10 +311,10 @@ function moves(board) {
   return []
 }
 
-function movesVals(board, depth) {
+function movesVals(depth) {
   assert(1 <= depth)
   depth--
-  const v = moves(board)
+  const v = moves()
   for (let i = 0; i < v.length; i++) {
     const b = v[i]
     b.val = minimax(b, depth, -Infinity, Infinity)
@@ -322,7 +322,7 @@ function movesVals(board, depth) {
   return v
 }
 
-function pieceVal(board, piece) {
+function pieceVal(piece) {
   let minus = false
   if (piece < 0) {
     piece = -piece
@@ -359,8 +359,12 @@ function put(x, y, piece) {
   board[x + y * width] = piece
 }
 
-function staticVal(board) {
+function at(x, y) {
+  return board[x + y * width]
+}
+
+function staticVal() {
   let val = 0.0
-  for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) val += pieceVal(board, board.at(x, y))
+  for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) val += pieceVal(at(x, y))
   return val
 }
