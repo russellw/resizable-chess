@@ -1,9 +1,9 @@
 "use strict"
 import chalk from "chalk"
-import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, Engine, initialBoard } from "./lib/engine.js"
+import * as engine from "./lib/engine.js"
 import { printBoard } from "./integration-test/common.js"
 
-let board = initialBoard(10, 10)
+engine. initBoard()
 console.log(board)
 let white = new Engine(board, 1, "white")
 let black = new Engine(board, -1, "black")
