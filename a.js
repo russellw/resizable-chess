@@ -1,9 +1,11 @@
 "use strict"
 import chalk from "chalk"
+// SORT
+import * as common from "./common.js"
 import * as engine from "./engine.js"
 import * as old from "./engine.js"
-import * as common from "./common.js"
 import { initialBoard } from "./rules.js"
+//
 
 const width = 10
 const height = 10
