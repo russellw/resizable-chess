@@ -37,10 +37,7 @@ class Move {
   }
 }
 
-// SORT
-let bestMove = null
 let nodes = 0
-//
 
 function apply(move) {
   const x = move.x
@@ -72,6 +69,21 @@ function at(x, y) {
   return board[x + y * width]
 }
 
+function bestMove(depth) {
+  const v = moves(color)
+  for (let i = 0; i < v.length; i++) {
+    const move = v[i]
+    apply(move)
+    move.val = minimax(-color, depth, -Infinity, Infinity)
+    retract(move)
+  }
+  if (v.length === 0) return null
+  if (color === 1) v.sort((a, b) => b.val - a.val)
+  else v.sort((a, b) => a.val - b.val)
+  const move = v[0]
+  return move
+}
+
 function dbg(a) {
   const stack = new Error().stack.split("\n")[2]
   console.log(stack.trim().replace(/^at\s+/g, ""))
@@ -79,18 +91,17 @@ function dbg(a) {
   console.log(util.inspect(a))
 }
 
-export function makeMove(n) {
-  // SORT
-  bestMove = null
+export function makeMove(n = 100000) {
   nodes = n
-  //
-  const v = movesVals(5)
-  if (v.length === 0) return null
-  if (color === 1) v.sort((a, b) => b.val - a.val)
-  else v.sort((a, b) => a.val - b.val)
-  const move = v[0]
-  apply(move)
-  return move
+  let move = null
+  for (let depth = 0; ; depth++) {
+    const m = bestMove(depth)
+    if (nodes === 0) {
+      apply(move)
+      return move
+    }
+    move = m
+  }
 }
 
 function minimax(turn, depth, alpha, beta) {
@@ -338,19 +349,6 @@ function moves(turn) {
       }
   if (kingFound) return v
   return []
-}
-
-function movesVals(depth) {
-  assert(1 <= depth)
-  depth--
-  const v = moves(color)
-  for (let i = 0; i < v.length; i++) {
-    const move = v[i]
-    apply(move)
-    move.val = minimax(-color, depth, -Infinity, Infinity)
-    retract(move)
-  }
-  return v
 }
 
 function pieceVal(piece) {

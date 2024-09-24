@@ -18,13 +18,13 @@ export function initialBoard(width, height, pawns = 1) {
   }
 
   // pawns
-  pawns = Math.min(height >> (2 - 1), pawns)
+  pawns = Math.min((height >> 2) - 1, pawns)
   for (let i = 0; i < pawns; i++) {
     const y = 1 + i
     const y1 = height - 2 - i
     for (let x = 0; x < width; x++) {
-      put(x, 1 + i, PAWN)
-      put(x, y, -PAWN)
+      put(x, y, PAWN)
+      put(x, y1, -PAWN)
     }
   }
 
