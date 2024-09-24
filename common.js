@@ -1,4 +1,5 @@
 "use strict"
+import assert from "assert"
 import chalk from "chalk"
 import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK } from "./rules.js"
 
@@ -70,18 +71,19 @@ export function decodeFEN(width, height, fen) {
   }
 
   // decode turn
+  let t=0
   switch (turn) {
     case "b":
-      turn = -1
+      t = -1
       break
     case "w":
-      turn = 1
+      t = 1
       break
     default:
       throw new Error(turn)
   }
 
-  return [board, turn]
+  return [board, t]
 }
 
 function isDigit(c) {
