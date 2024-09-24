@@ -1,3 +1,4 @@
+"use strict"
 import assert from "assert"
 import { initialBoard, PAWN, KING, QUEEN, ROOK, BISHOP, KNIGHT } from "../rules.js"
 

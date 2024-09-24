@@ -1,3 +1,4 @@
+"use strict"
 import assert from "assert"
 import { decodeFEN } from "../common.js"
 
