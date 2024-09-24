@@ -1,6 +1,5 @@
 "use strict"
 import assert from "assert"
-import util from "util"
 
 export const BISHOP = 1
 export const KING = 2
@@ -18,7 +17,7 @@ export function initialBoard(width, height, pawns = 1) {
   }
 
   // pawns
-  pawns = Math.min((height >> 2) - 1, pawns)
+  pawns = Math.min((height >> 1) - 1, pawns)
   for (let i = 0; i < pawns; i++) {
     const y = 1 + i
     const y1 = height - 2 - i
