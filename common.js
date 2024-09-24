@@ -53,13 +53,16 @@ export function decodeFEN(width, height, fen) {
   for (let i = 0; i < v.length; i++) {
     const row = v[i]
     let x = 0
-    for (let j = 0; j < row.length; j++) {
+    for (let j = 0; j < row.length; ) {
       const c = row[j]
-      // TODO: multi-digits
-      if ("1" <= c && c <= "9") {
-        x += c.charCodeAt(0) - 48
+      if (isDigit(c)) {
+        let k = j
+        for (; k < row.length && isDigit(row[k]); k++) {}
+        x += parseInt(row.substring(j, k))
+        j = k
         continue
       }
+      j++
       put(x, y, charPiece(c))
       x++
     }
@@ -79,6 +82,10 @@ export function decodeFEN(width, height, fen) {
   }
 
   return [board, turn]
+}
+
+function isDigit(c) {
+  return "0" <= c && c <= "9"
 }
 
 function pieceChar(piece) {
