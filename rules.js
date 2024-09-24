@@ -9,7 +9,7 @@ export const PAWN = 4
 export const QUEEN = 5
 export const ROOK = 6
 
-export function initialBoard(width, height) {
+export function initialBoard(width, height, pawns = 1) {
   assert(2 <= height)
   const board = new Int8Array(width * height)
 
@@ -18,10 +18,11 @@ export function initialBoard(width, height) {
   }
 
   // pawns
-  if (4 <= height) {
-    let y = height - 2
+  for (let i = 0; i < pawns; i++) {
+    const y = 1 + i
+    const y1 = height - 2 - i
     for (let x = 0; x < width; x++) {
-      put(x, 1, PAWN)
+      put(x, 1 + i, PAWN)
       put(x, y, -PAWN)
     }
   }

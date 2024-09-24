@@ -7,8 +7,8 @@ import * as old from "./old.js"
 import { initialBoard } from "./rules.js"
 //
 
-const width = 4
-const height = 4
+const width = 10
+const height = 10
 const board = initialBoard(width, height)
 engine.init(width, height, board, 1)
 old.init(width, height, board, -1)
