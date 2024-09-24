@@ -2,6 +2,7 @@
 import chalk from "chalk"
 import * as engine from "./engine.js"
 import * as old from "./engine.js"
+import * as common from "./common.js"
 import { initialBoard } from "./rules.js"
 
 const width = 10
@@ -17,7 +18,8 @@ function takeTurn(name, makeMove) {
   let t = (Date.now() - start) / 1000
   console.log(t)
   if (move === null) return false
-  printBoard(move, board)
+  common.printMove(move, board)
+  common.printBoard(board)
   return true
 }
 
