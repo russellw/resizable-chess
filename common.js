@@ -76,13 +76,17 @@ function printCoordinates(x, y) {
   process.stdout.write((1 + y).toString())
 }
 
-export function printMove(move) {
+export function printMove(width, move, board) {
   const x = move.x
   const y = move.y
   const x1 = move.x1
   const y1 = move.y1
   const piece = move.piece
   const target = move.target
+
+  function at(x, y) {
+    return board[x + y * width]
+  }
 
   printCoordinates(x, y)
   process.stdout.write("-")

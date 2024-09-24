@@ -20,7 +20,7 @@ function takeTurn(name, makeMove) {
   let t = (Date.now() - start) / 1000
   console.log(t)
   if (move === null) return false
-  common.printMove(move, board)
+  common.printMove(width, move, board)
   common.printBoard(board)
   return true
 }
