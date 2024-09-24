@@ -2,21 +2,84 @@
 import chalk from "chalk"
 import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK } from "./rules.js"
 
-const charPiece = new Map([
-  [".", 0],
-  ["B", BISHOP],
-  ["K", KING],
-  ["N", KNIGHT],
-  ["P", PAWN],
-  ["Q", QUEEN],
-  ["R", ROOK],
-  ["b", -BISHOP],
-  ["k", -KING],
-  ["n", -KNIGHT],
-  ["p", -PAWN],
-  ["q", -QUEEN],
-  ["r", -ROOK],
-])
+function charPiece(c) {
+  switch (c) {
+    case ".":
+      return 0
+    case "B":
+      return BISHOP
+    case "K":
+      return KING
+    case "N":
+      return KNIGHT
+    case "P":
+      return PAWN
+    case "Q":
+      return QUEEN
+    case "R":
+      return ROOK
+    case "b":
+      return -BISHOP
+    case "k":
+      return -KING
+    case "n":
+      return -KNIGHT
+    case "p":
+      return -PAWN
+    case "q":
+      return -QUEEN
+    case "r":
+      return -ROOK
+  }
+  throw new Error(c)
+}
+
+export function decodeFEN(width, height, fen) {
+  const [position, turn] = fen.split(" ")
+
+  // board
+  const board = new Int8Array(width * height)
+
+  function put(board, x, y, piece) {
+    assert(0 <= x && x < width)
+    assert(0 <= y && y < height)
+    assert(-6 <= piece && piece <= 6)
+    board[x + y * width] = piece
+  }
+
+  // decode position
+  const v = position.split("/")
+  let y = height - 1
+  for (let i = 0; i < v.length; i++) {
+    const row = v[i]
+    let x = 0
+    for (let j = 0; j < row.length; j++) {
+      const c = row[j]
+      // TODO: multi-digits
+      if ("1" <= c && c <= "9") {
+        x += c.charCodeAt(0) - 48
+        continue
+      }
+      put(x, y, charPiece(c))
+      x++
+    }
+    y--
+  }
+
+  // decode turn
+  switch (turn) {
+    case "b":
+      turn = -1
+      break
+    case "w":
+      turn = 1
+      break
+    default:
+      throw new Error(turn)
+  }
+
+  return [board, turn]
+}
 
 function pieceChar(piece) {
   switch (piece) {
