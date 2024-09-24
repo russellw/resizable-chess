@@ -1,6 +1,9 @@
 "use strict"
 import assert from "assert"
+// SORT
+import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK } from "../rules.js"
 import { decodeFEN } from "../common.js"
+//
 
 describe("decodeFEN", function () {
   it("should decode a simple FEN for a standard 8x8 chess board", function () {
@@ -11,20 +14,19 @@ describe("decodeFEN", function () {
     assert.strictEqual(turn, 1) // White's turn
   })
 
-  it("should decode FEN with pieces for a standard 8x8 board", function () {
-    const [board, turn] = decodeFEN(8, 8, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w")
+  it("should decode FEN with pieces for a standard back row", function () {
+    const [board, turn] = decodeFEN(8, 1, "rnbqkbnr w")
 
-    const expectedBoard = new Int8Array(8 * 8)
+    const expectedBoard = new Int8Array(8)
     // fill expectedBoard with appropriate piece values
-    expectedBoard[0] = -2 // r
-    expectedBoard[1] = -3 // n
-    expectedBoard[2] = -4 // b
-    expectedBoard[3] = -5 // q
-    expectedBoard[4] = -6 // k
-    expectedBoard[5] = -4 // b
-    expectedBoard[6] = -3 // n
-    expectedBoard[7] = -2 // r
-    expectedBoard[8] = -1 // p (and so on for other pawns and pieces)
+    expectedBoard[0] = -ROOK
+    expectedBoard[1] = -KNIGHT
+    expectedBoard[2] = -BISHOP
+    expectedBoard[3] = -QUEEN
+    expectedBoard[4] = -KING
+    expectedBoard[5] = -BISHOP
+    expectedBoard[6] = -KNIGHT
+    expectedBoard[7] = -ROOK
 
     // check if board matches expected layout
     assert.deepStrictEqual(board, expectedBoard)

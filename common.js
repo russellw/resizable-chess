@@ -41,7 +41,7 @@ export function decodeFEN(width, height, fen) {
   // board
   const board = new Int8Array(width * height)
 
-  function put(board, x, y, piece) {
+  function put(x, y, piece) {
     assert(0 <= x && x < width)
     assert(0 <= y && y < height)
     assert(-6 <= piece && piece <= 6)
