@@ -59,7 +59,7 @@ export function decodeFEN(width, height, fen) {
       if (isDigit(c)) {
         let k = j
         for (; k < row.length && isDigit(row[k]); k++) {}
-        x += parseInt(row.substring(j, k),10)
+        x += parseInt(row.substring(j, k), 10)
         j = k
         continue
       }
@@ -71,7 +71,7 @@ export function decodeFEN(width, height, fen) {
   }
 
   // decode turn
-  let t=0
+  let t = 0
   switch (turn) {
     case "b":
       t = -1
