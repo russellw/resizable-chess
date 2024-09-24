@@ -21,7 +21,7 @@ function takeTurn(name, makeMove) {
   console.log(t)
   if (move === null) return false
   common.printMove(width, move, board)
-  common.printBoard(board)
+  common.printBoard(width, height, board)
   return true
 }
 

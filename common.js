@@ -50,10 +50,7 @@ function pieceChar(piece) {
   throw new Error(piece)
 }
 
-export function printBoard(board) {
-  const width = board.width
-  const height = board.height
-
+export function printBoard(width, height, board) {
   function at(x, y) {
     return board[x + y * width]
   }

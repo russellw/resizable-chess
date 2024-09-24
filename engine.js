@@ -82,7 +82,9 @@ export function makeMove() {
   if (v.length === 0) return null
   if (color === 1) v.sort((a, b) => b.val - a.val)
   else v.sort((a, b) => a.val - b.val)
-  return v[0]
+  const move = v[0]
+  apply(move)
+  return move
 }
 
 function minimax(turn, depth, alpha, beta) {
