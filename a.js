@@ -7,8 +7,8 @@ import * as old from "./old.js"
 import { initialBoard } from "./rules.js"
 //
 
-const width = 10
-const height = 10
+const width = 4
+const height = 4
 const board = initialBoard(width, height)
 engine.init(width, height, board, 1)
 old.init(width, height, board, -1)
@@ -22,12 +22,19 @@ function takeTurn(name, makeMove) {
   if (move === null) return false
   common.printMove(width, move, board)
   common.printBoard(width, height, board)
+  console.log(move.val)
   return true
 }
 
 for (let i = 1; ; i++) {
   console.log(i)
-  if (!takeTurn("white", engine.makeMove)) break
-  if (!takeTurn("black", old.makeMove)) break
+  if (!takeTurn("white", engine.makeMove)) {
+    console.log("*** black wins ***")
+    break
+  }
+  if (!takeTurn("black", old.makeMove)) {
+    console.log("*** white wins ***")
+    break
+  }
   console.log()
 }
