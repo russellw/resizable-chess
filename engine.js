@@ -80,29 +80,36 @@ export function makeMove() {
   nodes = 0
   const v = movesVals(5)
   if (v.length === 0) return null
-  if (board.turn === 1) v.sort((a, b) => b.val - a.val)
+  if (color === 1) v.sort((a, b) => b.val - a.val)
   else v.sort((a, b) => a.val - b.val)
-  const b = v[0]
-  return b
+  return v[0]
 }
 
-function minimax(depth, alpha, beta) {
+function minimax(turn, depth, alpha, beta) {
   nodes++
   if (depth === 0) return staticVal()
   depth--
-  const v = moves()
-  if (board.turn >= 0) {
+  const v = moves(turn)
+  if (turn >= 0) {
+    turn = -turn
     let val = -Infinity
     for (let i = 0; i < v.length; i++) {
-      val = Math.max(val, minimax(v[i], depth, alpha, beta))
+      const move = v[i]
+      apply(move)
+      val = Math.max(val, minimax(turn, depth, alpha, beta))
+      retract(move)
       if (beta <= val) break
       alpha = Math.max(alpha, val)
     }
     return val
   } else {
+    turn = -turn
     let val = Infinity
     for (let i = 0; i < v.length; i++) {
-      val = Math.min(val, minimax(v[i], depth, alpha, beta))
+      const move = v[i]
+      apply(move)
+      val = Math.min(val, minimax(turn, depth, alpha, beta))
+      retract(move)
       if (val <= alpha) break
       beta = Math.min(beta, val)
     }
@@ -110,9 +117,6 @@ function minimax(depth, alpha, beta) {
   }
 }
 
-// calculate the moves the current player can make from a position
-// return a list of resulting boards
-// or the empty list if no moves are possible
 function moves(turn) {
   const v = []
 
@@ -282,7 +286,7 @@ function moves(turn) {
     }
   }
 
-  let kingExists = false
+  let kingFound = false
   for (var y = 0; y < height; y++)
     for (var x = 0; x < width; x++)
       switch (at(x, y) * turn) {
@@ -290,7 +294,7 @@ function moves(turn) {
           bishop()
           break
         case KING:
-          kingExists = true
+          kingFound = true
           add(x - 1, y - 1)
           add(x, y - 1)
           add(x + 1, y - 1)
@@ -321,17 +325,19 @@ function moves(turn) {
           rook()
           break
       }
-  if (kingExists) return v
+  if (kingFound) return v
   return []
 }
 
 function movesVals(depth) {
   assert(1 <= depth)
   depth--
-  const v = moves()
+  const v = moves(color)
   for (let i = 0; i < v.length; i++) {
-    const b = v[i]
-    b.val = minimax(b, depth, -Infinity, Infinity)
+    const move = v[i]
+    apply(move)
+    move.val = minimax(-color, depth, -Infinity, Infinity)
+    retract(move)
   }
   return v
 }
