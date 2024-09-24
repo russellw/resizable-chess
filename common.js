@@ -59,7 +59,7 @@ export function decodeFEN(width, height, fen) {
       if (isDigit(c)) {
         let k = j
         for (; k < row.length && isDigit(row[k]); k++) {}
-        x += parseInt(row.substring(j, k))
+        x += parseInt(row.substring(j, k),10)
         j = k
         continue
       }
