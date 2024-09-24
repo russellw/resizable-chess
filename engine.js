@@ -37,7 +37,10 @@ class Move {
   }
 }
 
+// SORT
+let bestMove = null
 let nodes = 0
+//
 
 function apply(move) {
   const x = move.x
@@ -76,8 +79,11 @@ function dbg(a) {
   console.log(util.inspect(a))
 }
 
-export function makeMove() {
-  nodes = 0
+export function makeMove(n) {
+  // SORT
+  bestMove = null
+  nodes = n
+  //
   const v = movesVals(5)
   if (v.length === 0) return null
   if (color === 1) v.sort((a, b) => b.val - a.val)
@@ -88,9 +94,12 @@ export function makeMove() {
 }
 
 function minimax(turn, depth, alpha, beta) {
-  nodes++
   if (depth === 0) return staticVal()
   depth--
+
+  if (nodes === 0) return 0
+  nodes--
+
   const v = moves(turn)
   if (turn >= 0) {
     turn = -turn
