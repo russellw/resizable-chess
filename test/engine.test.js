@@ -106,4 +106,45 @@ describe("engine", function () {
     assert.strictEqual(move.piece, KING)
     assert.strictEqual(move.target, 0)
   })
+
+  it("2x2 board is a win for white", function () {
+    const width = 2
+    const height = 2
+
+    let v = []
+    v.push("k.")
+    v.push("K.")
+    let board = decodeArray(width, height, v)
+    engine.init(width, height, board, 1)
+    let move = engine.makeMove()
+    assert.strictEqual(move.val, Infinity)
+    assert.strictEqual(move.x, 0)
+    assert.strictEqual(move.y, 0)
+    assert.strictEqual(move.x1, 0)
+    assert.strictEqual(move.y1, 1)
+    assert.strictEqual(move.piece, KING)
+    assert.strictEqual(move.target, -KING)
+
+    v = []
+    v.push("kq")
+    v.push("KQ")
+    board = decodeArray(width, height, v)
+    engine.init(width, height, board, 1)
+    move = engine.makeMove()
+    assert.strictEqual(move.val, Infinity)
+    assert.strictEqual(move.x1, 0)
+    assert.strictEqual(move.y1, 1)
+    assert.strictEqual(move.target, -KING)
+
+    v = []
+    v.push("qk")
+    v.push("QK")
+    board = decodeArray(width, height, v)
+    engine.init(width, height, board, 1)
+    move = engine.makeMove()
+    assert.strictEqual(move.val, Infinity)
+    assert.strictEqual(move.x1, 1)
+    assert.strictEqual(move.y1, 1)
+    assert.strictEqual(move.target, -KING)
+  })
 })
