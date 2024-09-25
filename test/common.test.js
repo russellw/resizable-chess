@@ -108,7 +108,9 @@ describe("decodeFEN - smaller boards", function () {
 
 describe("decodeArray", function () {
   it("should decode a 2x2 array into a board position", function () {
-    const board = decodeArray(["k1", "1P"])
+    const width = 2
+    const height = 2
+    const board = decodeArray(width, height, ["k1", "1P"])
 
     const expectedBoard = new Int8Array(2 * 2)
     expectedBoard[2] = -KING // k at the bottom left
@@ -118,7 +120,9 @@ describe("decodeArray", function () {
   })
 
   it("should decode a 3x3 array into a board position", function () {
-    const board = decodeArray(["q..", "1k1", "2B"])
+    const width = 3
+    const height = 3
+    const board = decodeArray(width, height, ["q..", "1k1", "2B"])
 
     const expectedBoard = new Int8Array(3 * 3)
     expectedBoard[6] = -QUEEN // q at the top left
@@ -129,7 +133,9 @@ describe("decodeArray", function () {
   })
 
   it("should decode a 4x4 array with mixed pieces", function () {
-    const board = decodeArray(["r...", "3p", "2P1", "2k1"])
+    const width = 4
+    const height = 4
+    const board = decodeArray(width, height, ["r...", "3p", "2P1", "2k1"])
 
     const expectedBoard = new Int8Array(4 * 4)
     expectedBoard[12] = -ROOK // r at top left
@@ -141,14 +147,18 @@ describe("decodeArray", function () {
   })
 
   it("should decode an empty 3x3 array into a board position", function () {
-    const board = decodeArray(["...", "...", "..."])
+    const width = 3
+    const height = 3
+    const board = decodeArray(width, height, ["...", "...", "..."])
 
     const expectedBoard = new Int8Array(3 * 3) // Empty board
     assert.deepStrictEqual(board, expectedBoard)
   })
 
   it("should decode a 4x4 array with only kings", function () {
-    const board = decodeArray(["2k1", "....", "1K2", "4"])
+    const width = 4
+    const height = 4
+    const board = decodeArray(width, height, ["2k1", "....", "1K2", "4"])
 
     const expectedBoard = new Int8Array(4 * 4)
     expectedBoard[14] = -KING // k at the top row, third column
