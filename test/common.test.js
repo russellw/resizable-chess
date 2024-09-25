@@ -48,61 +48,60 @@ describe("decodeFEN", function () {
   })
 })
 
+describe("decodeFEN - smaller boards", function () {
+  it("should decode a 4x4 board with pieces and white to move", function () {
+    const [board, turn] = decodeFEN(4, 4, "r3/3p/2P1/2k1 w")
 
-describe('decodeFEN - smaller boards', function() {
-  it('should decode a 4x4 board with pieces and white to move', function() {
-    const [board, turn] = decodeFEN(4, 4, 'r3/3p/2P1/2k1 w');
-    
-    const expectedBoard = new Int8Array(4 * 4);
-    expectedBoard[12] = -ROOK;    // r
-    expectedBoard[11] = -PAWN;    // p
-    expectedBoard[6] = PAWN;    // P
-    expectedBoard[2] = -KING;   // k
+    const expectedBoard = new Int8Array(4 * 4)
+    expectedBoard[12] = -ROOK // r
+    expectedBoard[11] = -PAWN // p
+    expectedBoard[6] = PAWN // P
+    expectedBoard[2] = -KING // k
 
-    assert.deepStrictEqual(board, expectedBoard);
-    assert.strictEqual(turn, 1); // White's turn
-  });
+    assert.deepStrictEqual(board, expectedBoard)
+    assert.strictEqual(turn, 1) // White's turn
+  })
 
-  it('should decode a 4x4 board with pieces and black to move', function() {
-    const [board, turn] = decodeFEN(4, 4, '4/2n1/1P2/2K1 b');
-    
-    const expectedBoard = new Int8Array(4 * 4);
-    expectedBoard[10] = -KNIGHT;  // n
-    expectedBoard[5] = PAWN;     // P
-    expectedBoard[2] = KING;    // K
+  it("should decode a 4x4 board with pieces and black to move", function () {
+    const [board, turn] = decodeFEN(4, 4, "4/2n1/1P2/2K1 b")
 
-    assert.deepStrictEqual(board, expectedBoard);
-    assert.strictEqual(turn, -1); // Black's turn
-  });
+    const expectedBoard = new Int8Array(4 * 4)
+    expectedBoard[10] = -KNIGHT // n
+    expectedBoard[5] = PAWN // P
+    expectedBoard[2] = KING // K
 
-  it('should decode a 2x2 board with pieces and white to move', function() {
-    const [board, turn] = decodeFEN(2, 2, 'k1/1P w');
+    assert.deepStrictEqual(board, expectedBoard)
+    assert.strictEqual(turn, -1) // Black's turn
+  })
 
-    const expectedBoard = new Int8Array(2 * 2);
-    expectedBoard[2] = -KING;    // k
-    expectedBoard[1] = PAWN;     // P
+  it("should decode a 2x2 board with pieces and white to move", function () {
+    const [board, turn] = decodeFEN(2, 2, "k1/1P w")
 
-    assert.deepStrictEqual(board, expectedBoard);
-    assert.strictEqual(turn, 1); // White's turn
-  });
+    const expectedBoard = new Int8Array(2 * 2)
+    expectedBoard[2] = -KING // k
+    expectedBoard[1] = PAWN // P
 
-  it('should decode a 3x3 board with both players having pieces', function() {
-    const [board, turn] = decodeFEN(3, 3, 'q2/1k1/2B w');
+    assert.deepStrictEqual(board, expectedBoard)
+    assert.strictEqual(turn, 1) // White's turn
+  })
 
-    const expectedBoard = new Int8Array(3 * 3);
-    expectedBoard[6] = -QUEEN;   // q
-    expectedBoard[4] = -KING;    // k
-    expectedBoard[2] = BISHOP;   // B
+  it("should decode a 3x3 board with both players having pieces", function () {
+    const [board, turn] = decodeFEN(3, 3, "q2/1k1/2B w")
 
-    assert.deepStrictEqual(board, expectedBoard);
-    assert.strictEqual(turn, 1); // White's turn
-  });
+    const expectedBoard = new Int8Array(3 * 3)
+    expectedBoard[6] = -QUEEN // q
+    expectedBoard[4] = -KING // k
+    expectedBoard[2] = BISHOP // B
 
-  it('should decode an empty 3x3 board with black to move', function() {
-    const [board, turn] = decodeFEN(3, 3, '3/3/3 b');
+    assert.deepStrictEqual(board, expectedBoard)
+    assert.strictEqual(turn, 1) // White's turn
+  })
 
-    const expectedBoard = new Int8Array(3 * 3); // Empty board
-    assert.deepStrictEqual(board, expectedBoard);
-    assert.strictEqual(turn, -1); // Black's turn
-  });
-});
+  it("should decode an empty 3x3 board with black to move", function () {
+    const [board, turn] = decodeFEN(3, 3, "3/3/3 b")
+
+    const expectedBoard = new Int8Array(3 * 3) // Empty board
+    assert.deepStrictEqual(board, expectedBoard)
+    assert.strictEqual(turn, -1) // Black's turn
+  })
+})
