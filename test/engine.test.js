@@ -1,9 +1,9 @@
 "use strict"
 import assert from "assert"
 // SORT
-import * as engine from "../engine.js"
-import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, initialBoard } from "../rules.js"
-import { decodeArray } from "../common.js"
+import * as engine from "../lib/engine.js"
+import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, initialBoard } from "../lib/rules.js"
+import { decodeArray } from "../lib/common.js"
 //
 
 describe("engine", function () {

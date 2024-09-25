@@ -1,8 +1,8 @@
 "use strict"
 import assert from "assert"
 // SORT
-import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK } from "../rules.js"
-import { decodeFEN, decodeArray } from "../common.js"
+import { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK } from "../lib/rules.js"
+import { decodeFEN, decodeArray } from "../lib/common.js"
 //
 
 describe("decodeFEN", function () {

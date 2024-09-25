@@ -1,10 +1,10 @@
 "use strict"
 import chalk from "chalk"
 // SORT
-import * as common from "./common.js"
-import * as engine from "./engine.js"
-import * as old from "./old.js"
-import { initialBoard } from "./rules.js"
+import * as common from "./lib/common.js"
+import * as engine from "./lib/engine.js"
+import * as old from "./lib/old.js"
+import { initialBoard } from "./lib/rules.js"
 //
 
 const width = 6
