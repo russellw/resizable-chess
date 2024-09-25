@@ -58,5 +58,52 @@ describe("engine", function () {
     engine.init(width, height, board, 1)
     let move = engine.makeMove()
     assert.strictEqual(move.val, -Infinity)
+    assert.strictEqual(move.x, 0)
+    assert.strictEqual(move.y, 0)
+    assert.strictEqual(move.x1, 0)
+    assert.strictEqual(move.y1, 1)
+    assert.strictEqual(move.piece, KING)
+    assert.strictEqual(move.target, 0)
+  })
+
+  it("1x4 board is a win for white", function () {
+    const width = 1
+    const height = 4
+    let v = []
+    v.push("k")
+    v.push(".")
+    v.push(".")
+    v.push("K")
+    let board = decodeArray(width, height, v)
+    engine.init(width, height, board, 1)
+    let move = engine.makeMove()
+    assert.strictEqual(move.val, Infinity)
+    assert.strictEqual(move.x, 0)
+    assert.strictEqual(move.y, 0)
+    assert.strictEqual(move.x1, 0)
+    assert.strictEqual(move.y1, 1)
+    assert.strictEqual(move.piece, KING)
+    assert.strictEqual(move.target, 0)
+  })
+
+  it("1x5 board is a win for black", function () {
+    const width = 1
+    const height = 5
+    let v = []
+    v.push("k")
+    v.push(".")
+    v.push(".")
+    v.push(".")
+    v.push("K")
+    let board = decodeArray(width, height, v)
+    engine.init(width, height, board, 1)
+    let move = engine.makeMove()
+    assert.strictEqual(move.val, -Infinity)
+    assert.strictEqual(move.x, 0)
+    assert.strictEqual(move.y, 0)
+    assert.strictEqual(move.x1, 0)
+    assert.strictEqual(move.y1, 1)
+    assert.strictEqual(move.piece, KING)
+    assert.strictEqual(move.target, 0)
   })
 })
