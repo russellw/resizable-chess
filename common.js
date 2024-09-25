@@ -35,6 +35,13 @@ function charPiece(c) {
   throw new Error(c)
 }
 
+export function decodeArray(v) {
+  let width = 0
+  for (let i = 0; i < v.length; i++) width = Math.max(width, v[i].length)
+  const height = v.length
+  return decodeFEN(width, height, v.join("/") + " w")[0]
+}
+
 export function decodeFEN(width, height, fen) {
   const [position, turn] = fen.split(" ")
 
